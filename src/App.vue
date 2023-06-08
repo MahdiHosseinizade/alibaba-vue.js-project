@@ -13,10 +13,12 @@
   <div id="app">
     <Header />
     <Home />
+    <Search />
   </div>
 </template>
 
 <script setup>
   import Header from './components/Header.vue';
   import Home from './components/Home.vue';
+  import Search from './components/Search.vue'
 </script>
