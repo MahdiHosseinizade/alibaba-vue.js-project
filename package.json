@@ -1,0 +1,22 @@
+{
+  "name": "alibaba-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "husky": "^8.0.0",
+    "vite": "^4.3.9"
+  }
+}
