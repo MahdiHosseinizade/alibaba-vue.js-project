@@ -1,6 +1,4 @@
 <template>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <section class="home" id="home">
         <div class="container">
             <img src="../assets/images/the-last-of-us-hbo-series-character-guide_tyck.jpg" alt="BackGround Image" id="backGroundImg">
