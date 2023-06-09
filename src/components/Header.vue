@@ -7,10 +7,10 @@
         </a>
 
         <ul class="navbar">
-            <li><a href="./Home.vue">Home</a></li>
+            <li><a href="#home">Home</a></li>
             <li><a href="#movies">Series</a></li>
             <li><a href="#coming">Movie</a></li>
-            <li><a href="./Search.vue">Search</a></li> 
+            <li><a href="#search">Search</a></li> 
         </ul>
         <div class="cc">
             <a href="./login.html" class="signInbtn">Sign In</a>
