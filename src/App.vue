@@ -14,6 +14,7 @@
     <Header />
     <Home />
     <Search />
+    <Series />
   </div>
 </template>
 
@@ -21,4 +22,5 @@
   import Header from './components/Header.vue';
   import Home from './components/Home.vue';
   import Search from './components/Search.vue'
+  import Series from './components/Series.vue';
 </script>
