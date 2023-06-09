@@ -15,6 +15,7 @@
     <Home />
     <Search />
     <Series />
+    <Movies />
   </div>
 </template>
 
@@ -23,4 +24,5 @@
   import Home from './components/Home.vue';
   import Search from './components/Search.vue'
   import Series from './components/Series.vue';
+  import Movies from './components/Movies.vue';
 </script>
