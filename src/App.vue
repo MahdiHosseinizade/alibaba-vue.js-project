@@ -19,6 +19,7 @@
     <Series />
     <Movies />
     <Footer />
+    <!-- <Login /> -->
   </div>
 </template>
 
@@ -29,4 +30,5 @@
   import Series from './components/Series.vue';
   import Movies from './components/Movies.vue';
   import Footer from './components/Footer.vue';
+  // import Login from './components/login.vue'
 </script>
