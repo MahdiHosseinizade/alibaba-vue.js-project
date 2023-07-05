@@ -22,3 +22,12 @@ Navigate to the project folder: Move into the project directory using the follow
 ```bash
 cd movie-project
 ```
+3 - Install dependencies: Install the project dependencies by running the following command:
+```bash
+npm install
+```
+4 - Start the development server: Launch the development server using the following command:
+```bash
+npm run dev
+```
+
