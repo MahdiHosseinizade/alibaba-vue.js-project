@@ -18,16 +18,16 @@ Follow the instructions below to get started with the Movie Project:
 ```bash
    git clone https://github.com/MahdiHosseinizade/alibaba-vue.js-project
 ```
-Navigate to the project folder: Move into the project directory using the following command:
-```bash
-cd movie-project
-```
-3 - Install dependencies: Install the project dependencies by running the following command:
-```bash
-npm install
-```
-4 - Start the development server: Launch the development server using the following command:
-```bash
-npm run dev
-```
+3. **Navigate to the project folder: Move into the project directory using the following command:
+   ```bash
+   cd movie-project
+   ```
+4. **Install dependencies: Install the project dependencies by running the following command:
+   ```bash
+   npm install
+   ```
+5. **Start the development server: Launch the development server using the following command:
+   ```bash
+   npm run dev
+   ```
 
