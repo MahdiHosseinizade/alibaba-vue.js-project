@@ -7,10 +7,8 @@
         <div class="box-img">
           <img :src="`${imageBaseURL}${imageSize}${series.poster_path}`" :alt="series.title">
         </div>
-        <article>
           <h3>{{ series.title }}</h3>
-          <span>| {{ movieGenre }}</span>
-        </article>
+          <span>{{ movieInfo }}</span>
       </div>
     </div>
   </section>
@@ -21,7 +19,7 @@
 import { onMounted, ref } from 'vue';
 import { imageBaseURL, imageSize } from '../common/imageAPI';
 const seriesList = ref([]);
-const movieGenre = ref('');
+const movieInfo = ref('');
 
 const options = {
   method: 'GET',
@@ -34,12 +32,13 @@ const options = {
 const getPopularSeries = async () => {
   const response = await fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options);
   const data = await response.json();
-  const movies = data.results.slice(0, 8) ;
+  const movies = data.results.slice(9, 15) ;
   for (const movie of movies){
+    console.log('movie is:',movie);
     const movieDetailsResponse = await fetch (`https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`,options);
     const movieDetails = await movieDetailsResponse.json();
     const genre = movieDetails.genres.map((genre) => genre.name);
-    movieGenre.value = genre[0];
+    movieInfo.value = `imdb : ${movie.vote_average}  | ${genre[0]}`;
   }
   seriesList.value = movies;
 };
@@ -49,3 +48,14 @@ const getPopularSeries = async () => {
 onMounted(getPopularSeries);
 
 </script>
+
+<style scoped>
+  .movieInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* justify-content: center; */
+
+  }
+</style>
