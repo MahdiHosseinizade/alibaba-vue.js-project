@@ -23,7 +23,6 @@
     import alex from '../assets/images/alex.jpg';
     import bradpit from '../assets/images/bradpit.jpg';
     import darasalim from '../assets/images/darsalim.jpg';
-    import MoviePage from './MoviePage.vue';
     import { ref } from 'vue';
     const showMoviePage = ref(false);
     const selectedMovie = ref(null);
