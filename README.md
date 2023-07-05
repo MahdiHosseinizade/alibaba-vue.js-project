@@ -1,4 +1,4 @@
-# Movie Project (Alibaba Academy Task)
+# Movie Project (Alibaba Academy)
 
 This is a movie project developed using Vue.js, which was created as part of the Alibaba Academy task.
 
