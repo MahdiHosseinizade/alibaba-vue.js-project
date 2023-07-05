@@ -1,6 +1,6 @@
 <template>
     <section class="footer" id="footer">
-        <a href="" class="logo">
+        <a  class="logo">
             <i class='bx bxs-movie'></i>Connect with me
         </a>
         <div class="social">

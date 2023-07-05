@@ -43,7 +43,6 @@ const getUpcomingMovie = async () =>{
   const data = await respponse.json();
   const upcomingMovie = data.results.slice(0, 4);
   for (const movie of upcomingMovie){
-    console.log('movie is:',movie);
     const movieDetailsResponse = await fetch (`https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`,options);
     const movieDetails = await movieDetailsResponse.json();
     const genre = movieDetails.genres.map((genre) => genre.name);
