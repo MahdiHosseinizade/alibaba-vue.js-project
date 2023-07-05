@@ -44,21 +44,7 @@ const redirectTo = (url) => {
 const openMenu = () =>{
     menuBurgerRef.value.style.right = '0';
 };
-// const navLinks = document.querySelectorAll('.navbar a');
-// navLinks.forEach(link => {
-//     link.addEventListener('click', function () {
-//         navLinks.forEach(link => link.classList.remove('active'));
-//         this.classList.add('active');
-//     });
-// });
 
-// const menuItems = document.querySelectorAll('.menuBurger li');
-// menuItems.forEach(item => {
-//     item.addEventListener('click', function () {
-//         const menuBurger = document.querySelector('.menuBurger');
-//         menuBurger.style.right = '-100%';
-//     });
-// });
 </script>
 
 <style scoped>

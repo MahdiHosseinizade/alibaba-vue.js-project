@@ -49,13 +49,3 @@ onMounted(getPopularSeries);
 
 </script>
 
-<style scoped>
-  .movieInfo{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    /* justify-content: center; */
-
-  }
-</style>
