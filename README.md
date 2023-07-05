@@ -1,7 +1,32 @@
-# Vue 3 + Vite
+# Movie Project (Alibaba Academy)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is a movie project developed using Vue.js, which was created as part of the Alibaba Academy task.
 
-## Recommended IDE Setup
+## Features
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Utilizes Vue 3's `<script setup>` SFCs for efficient and concise code.
+- Implements a  build tool, Vite, for faster development and optimized builds.
+
+
+## Getting Started
+
+Follow the instructions below to get started with the Movie Project:
+
+1. **Prerequisites**: Ensure that you have Node.js installed on your system.
+2. **Clone the repository**: Clone this repository to your system using the following command:
+```bash
+git clone https://github.com/MahdiHosseinizade/alibaba-vue.js-project
+```
+3. **Navigate to the project folder**: Move into the project directory using the following command:
+```bash
+cd movie-project
+```
+4. **Install dependencies**: Install the project dependencies by running the following command:
+```bash
+npm install
+```
+5. **Start the development server**: Launch the development server using the following command:
+```bash
+npm run dev
+```
+
