@@ -229,7 +229,7 @@ button[type="submit"]:hover {
   }
 
   .header_form{
-    width: 92%;
+    width: 96%;
   }
 
   .logo {
