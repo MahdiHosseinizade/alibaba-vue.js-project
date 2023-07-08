@@ -16,7 +16,8 @@
 </template>
 
 <script setup>
-  import { imageBaseURL, imageSize } from '../common/imageAPI';
+  import { imageBaseURL, imageSize } from '../constants/imageAPI';
+  import {ACCESS_TOKEN,BASEURL} from '../constants/apiConstants'
     import { onMounted, ref } from 'vue';
     const showMoviePage = ref(false);
     const selectedMovie = ref(null);
@@ -34,16 +35,16 @@
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YTU2YzhmYzk2N2EzMTA1NDk2OTA3MmFhY2E2MDVmNiIsInN1YiI6IjY0YTUxYjMyMWJmMjY2MDEwNTE4MDAyMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HxmHxMHAYsrdt_Q3S613yYxLtOJCHd2gYTqAfOAIY2I'
+    Authorization: `Bearer ${ACCESS_TOKEN}`
   }
 };
 
 const getUpcomingMovie = async () =>{
-  const respponse = await fetch('https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1', options)
+  const respponse = await fetch(`${BASEURL}/3/movie/upcoming?language=en-US&page=1`, options)
   const data = await respponse.json();
-  const upcomingMovie = data.results.slice(0, 4);
+  const upcomingMovie = data.results;
   for (const movie of upcomingMovie){
-    const movieDetailsResponse = await fetch (`https://api.themoviedb.org/3/movie/${movie.id}?language=en-US`,options);
+    const movieDetailsResponse = await fetch (`${BASEURL}/3/movie/${movie.id}?language=en-US`,options);
     const movieDetails = await movieDetailsResponse.json();
     const genre = movieDetails.genres.map((genre) => genre.name);
     movieInfo.value = `imdb :${movie.vote_average} | ${genre[0]}`;
