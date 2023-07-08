@@ -7,18 +7,16 @@
           <i class='bx bxs-movie'></i>IMDB 
       </a>
     </header>
-
-   <main class="loginHeader">
-    <header class="header_form">
+    <main class="loginHeader">
+    <header class=" header_form">
       <nav class="navBar">
         <ul>
-          <li><a href="./login.html" class="active">Sign In</a></li>
-          <li><a href="./signup.html">Create Account</a></li>
+          <li><a href="./login.vue" >Sign In</a></li>
+          <li><a href="./Register.vue" class="active">Create Account</a></li>
         </ul>
       </nav>
     </header>
     <section class="loginForm">
-      <!-- <h1>Sign in to your account</h1> -->
       <form>
         <div>
           <label for="username">Username or Email Address</label>
@@ -28,22 +26,27 @@
           <label for="password">Password</label>
           <input type="password" name="password" id="password" placeholder="Enter your password">
         </div>
+        <div>
+            <label for="password">Password Confrimation</label>
+            <input type="password" name="password" id="password" placeholder="Enter your password">
+          </div>
         <div class="rememberMe">
           <input type="checkbox" name="rememberMe" id="rememberMe">
           <label for="rememberMe">Remember Me</label>
         </div>
-        <button class="btn-signIn" type="submit">Log In</button>
-        <p><a href="./signup.html">Don't have an account ?</a></p>
+        <button type="submit">Sign In</button>
+        <p><a href="./login.html">Already have an account ?</a></p>
       </form>
     </section>
    </main>
 </template>
+
 <script setup>
 
 </script>
 
-<style>
-    ::selection{
+<style scoped>
+     ::selection{
   color: #020307;
   background-color: #fff;
 }
@@ -260,5 +263,4 @@ button[type="submit"]:hover {
   }
 
 }
-
 </style>
