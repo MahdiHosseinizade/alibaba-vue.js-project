@@ -13,14 +13,13 @@
             <li><a href="#search">Search</a></li> 
         </ul>
         <div class="cc">
-            <a href="./login.html" class="signInbtn">Sign In</a>
-            <div class="icon" @click="openMenu">
-                <span class="fas fa-bars"></span>
+           <router-link to="" class="signInbtn">Sign In</router-link>
+           <div class="icon" @click="openMenu">
+              <span class="fas fa-bars"></span>
             </div>
         </div>
 
         <div class="menuBurger" ref="menuBurgerRef">
-            <!-- <span class="fas fas fa-times"></span> -->
             <ul>
                 <li><a class="fas fa-times close-hamburger"></a></li>
                 <li><a href="./login.html" class="">Sign In</a></li>
@@ -35,11 +34,9 @@
 
 <script setup>
 import { ref } from 'vue';
+import { RouterLink } from 'vue-router';
 const menuBurgerRef = ref(null);
 
-const redirectTo = (url) => {
-    window.location.href = url;
-};
 
 const openMenu = () =>{
     menuBurgerRef.value.style.right = '0';

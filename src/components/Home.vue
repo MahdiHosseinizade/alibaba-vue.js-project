@@ -19,8 +19,8 @@
         </div>
     </section>
     <Search />
-    <Movies />
     <Series />
+    <Movies />
     <Footer />
 </template>
 
