@@ -3,18 +3,20 @@
     <h2 class="heading">Series</h2>
 
     <div class="">
-      <div v-if="isLoading" v-for="(series,index) in 5" class="skeleton-loader movie-container">
+      <div v-if="isLoading" v-for="(series, index) in 3" class="skeleton-loader movie-container">
         <div class="skeleton-img"></div>
         <div class="skeleton-title"></div>
         <div class="skeleton-info"></div>
       </div>
-      <div  v-else class="movie-container">
-          <div v-for="(series, index) in seriesList" :key="index" class="box">
-          <div class="box-img">
-            <img :src="`${imageBaseURL}${imageSize}${series.poster_path}`" :alt="series.title">
-          </div>
-          <h3>{{ series.title }}</h3>
-          <span>{{ movieInfo }}</span>
+      <div v-else class="movie-container">
+        <div v-for="(series, index) in seriesList" :key="index" class="box">
+          <RouterLink :to="{name:'movie',params:{id:series.id}}">
+            <div class="box-img">
+              <img :src="`${imageBaseURL}${imageSize}${series.poster_path}`" :alt="series.title">
+            </div>
+            <h3 class="movie-title">{{ series.title }}</h3>
+            <span class="movie-info">{{ movieInfo }}</span>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -26,7 +28,7 @@
 
 import { onMounted, ref } from 'vue';
 import { imageBaseURL, imageSize } from '../constants/imageAPI';
-import {ACCESS_TOKEN,BASEURL} from '../constants/apiConstants'
+import { ACCESS_TOKEN, BASEURL } from '../constants/apiConstants'
 const seriesList = ref([]);
 const movieInfo = ref('');
 const isLoading = ref(true);
@@ -45,8 +47,8 @@ const getPopularSeries = async () => {
   const response = await fetch(`${BASEURL}/3/movie/top_rated?language=en-US&page=1`, options);
   const data = await response.json();
   const movies = data.results;
-  for (const movie of movies){
-    const movieDetailsResponse = await fetch (`${BASEURL}/3/movie/${movie.id}?language=en-US`,options);
+  for (const movie of movies) {
+    const movieDetailsResponse = await fetch(`${BASEURL}/3/movie/${movie.id}?language=en-US`, options);
     const movieDetails = await movieDetailsResponse.json();
     const genre = movieDetails.genres.map((genre) => genre.name);
     movieInfo.value = `imdb : ${movie.vote_average}  | ${genre[0]}`;
