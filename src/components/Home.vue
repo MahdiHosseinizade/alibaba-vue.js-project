@@ -1,4 +1,5 @@
 <template>
+    <Header/>
     <section class="home" id="home">
         <div class="container">
             <img src="../assets/images/the-last-of-us-hbo-series-character-guide_tyck.jpg" alt="BackGround Image" id="backGroundImg">
@@ -17,8 +18,16 @@
             </div>
         </div>
     </section>
+    <Search />
+    <Series />
+    <Movies />
+    <Footer />
 </template>
 
 <script setup>
-
+    import Search from './Search.vue';
+    import Header from './Header.vue';
+    import Movies from './Movies.vue';
+    import Series from './Series.vue';
+    import Footer from './Footer.vue';
 </script>

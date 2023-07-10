@@ -285,7 +285,12 @@ header{
     transform: translateY(-10px);
     filter: brightness(1);
 }
-
+.movie-title{
+    color: var(--text-color);
+}
+.movie-info{
+    color: var(--text-color);
+}
 .skeleton-loader {
     background-color: #f2f2f2;
     border-radius: 5px;
