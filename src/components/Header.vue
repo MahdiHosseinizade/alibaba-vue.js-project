@@ -13,7 +13,7 @@
             <li><a href="#search">Search</a></li> 
         </ul>
         <div class="cc">
-           <router-link to="" class="signInbtn">Sign In</router-link>
+           <RouterLink to="register" class="signInbtn">Sign In</RouterLink>
            <div class="icon" @click="openMenu">
               <span class="fas fa-bars"></span>
             </div>

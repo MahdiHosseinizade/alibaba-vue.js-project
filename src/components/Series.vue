@@ -33,9 +33,8 @@ const options = {
 const getPopularSeries = async () => {
   const response = await fetch(`${BASEURL}/3/movie/top_rated?language=en-US&page=1`, options);
   const data = await response.json();
-  const movies = data.results;
+  const movies = data.results.slice(0,3);
   for (const movie of movies){
-    console.log('movie is:',movie);
     const movieDetailsResponse = await fetch (`${BASEURL}/3/movie/${movie.id}?language=en-US`,options);
     const movieDetails = await movieDetailsResponse.json();
     const genre = movieDetails.genres.map((genre) => genre.name);

@@ -285,7 +285,12 @@ header{
     transform: translateY(-10px);
     filter: brightness(1);
 }
-
+.movie-title{
+    color: var(--text-color);
+}
+.movie-info{
+    color: var(--text-color);
+}
 
 .search{
     max-width: 968px;
