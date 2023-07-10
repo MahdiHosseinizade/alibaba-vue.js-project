@@ -3,7 +3,7 @@
     <h2 class="heading">Movie</h2>
 
     <div class="">
-      <div v-if="isLoading" v-for="(series, index) in 3" class="skeleton-loader movie-container">
+      <div v-if="isLoading" v-for="(_, index) in skeletonCount" :key="index" class="skeleton-loader movie-container">
         <div class="skeleton-img"></div>
         <div class="skeleton-title"></div>
         <div class="skeleton-info"></div>
@@ -30,7 +30,7 @@ import { onMounted, ref } from 'vue';
 const movieList = ref([]);
 const movieInfo = ref('');
 const isLoading = ref(true);
-
+const skeletonCount = ref(3);
 
 
 const options = {
