@@ -12,7 +12,11 @@
       <nav class="navBar">
         <ul>
           <li><a href="./login.vue" >Sign In</a></li>
-          <li><a href="./Register.vue" class="active">Create Account</a></li>
+          <li>
+            <RouterLink to="register" class="active">
+              Create Account
+            </RouterLink>
+          </li>
         </ul>
       </nav>
     </header>
