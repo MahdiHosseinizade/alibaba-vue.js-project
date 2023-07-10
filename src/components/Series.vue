@@ -2,14 +2,14 @@
   <section id="movies" class="movies">
     <h2 class="heading">Series</h2>
 
-    <div class="movie-container">
-      <div v-for="(series, index) in seriesList" :key="index" class="box">
-        <div v-if="isLoading" class="skeleton-loader">
-          <div class="skeleton-img"></div>
-          <div class="skeleton-title"></div>
-          <div class="skeleton-info"></div>
-        </div>
-        <div v-else>
+    <div class="">
+      <div v-if="isLoading" v-for="(series,index) in 5" class="skeleton-loader movie-container">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-title"></div>
+        <div class="skeleton-info"></div>
+      </div>
+      <div  v-else class="movie-container">
+          <div v-for="(series, index) in seriesList" :key="index" class="box">
           <div class="box-img">
             <img :src="`${imageBaseURL}${imageSize}${series.poster_path}`" :alt="series.title">
           </div>
@@ -20,6 +20,7 @@
     </div>
   </section>
 </template>
+
   
 <script setup>
 
@@ -38,10 +39,12 @@ const options = {
   }
 };
 
+
 const getPopularSeries = async () => {
+  isLoading.value = true;
   const response = await fetch(`${BASEURL}/3/movie/top_rated?language=en-US&page=1`, options);
   const data = await response.json();
-  const movies = data.results.slice(0,3);
+  const movies = data.results;
   for (const movie of movies){
     const movieDetailsResponse = await fetch (`${BASEURL}/3/movie/${movie.id}?language=en-US`,options);
     const movieDetails = await movieDetailsResponse.json();
@@ -49,6 +52,8 @@ const getPopularSeries = async () => {
     movieInfo.value = `imdb : ${movie.vote_average}  | ${genre[0]}`;
   }
   seriesList.value = movies;
+  isLoading.value = false;
+
 };
 
 
