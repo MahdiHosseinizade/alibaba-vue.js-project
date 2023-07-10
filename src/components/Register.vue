@@ -3,16 +3,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
     <header>
-      <a href="../html/index.html" class="logo">
-          <i class='bx bxs-movie'></i>IMDB 
-      </a>
+      <RouterLink to="/" class="logo">
+        <i class='bx bxs-movie'></i>IMDB
+      </RouterLink>
     </header>
     <main class="loginHeader">
     <header class=" header_form">
       <nav class="navBar">
         <ul>
           <li><a href="./login.vue" >Sign In</a></li>
-          <li><a href="./Register.vue" class="active">Create Account</a></li>
+          <li>
+            <RouterLink to="register" class="active">
+              Create Account
+            </RouterLink>
+          </li>
         </ul>
       </nav>
     </header>

@@ -4,14 +4,16 @@
   
       <div class="movie-container">
         <div v-for="(movie, index) in movieList" :key="index" class="box">
-          <div class="box-img" @click="openMoviePage(movie)">
-            <img :src="`${imageBaseURL}${imageSize}${movie.poster_path}`" :alt="movie.title">
-          </div>
-          <h3>{{ movie.title }}</h3>
-          <span>{{ movieInfo }}</span>
+          <RouterLink :to="{name : 'movie' , params:{id:movie.id}}">
+            <div class="box-img" >
+              <img :src="`${imageBaseURL}${imageSize}${movie.poster_path}`" :alt="movie.title">
+            </div>
+            <h3 class="movie-title">{{ movie.title }}</h3>
+            <span class="movie-info">{{ movieInfo }}</span>
+          </RouterLink>
+
         </div>
       </div>
-      <MoviePage v-if="showMoviePage" :movie="selectedMovie" @close="closeMoviePage" />
     </section>
 </template>
 
@@ -19,17 +21,10 @@
   import { imageBaseURL, imageSize } from '../constants/imageAPI';
   import {ACCESS_TOKEN,BASEURL} from '../constants/apiConstants'
     import { onMounted, ref } from 'vue';
-    const showMoviePage = ref(false);
-    const selectedMovie = ref(null);
     const movieList = ref([]);
     const movieInfo = ref('');
-    const openMoviePage = (movie) => {
-    selectedMovie.value = movie;
-    showMoviePage.value = true;
-  };
-  const closeMoviePage = () => {
-    showMoviePage.value = false;
-  };
+
+
 
   const options = {
   method: 'GET',
@@ -42,7 +37,7 @@
 const getUpcomingMovie = async () =>{
   const respponse = await fetch(`${BASEURL}/3/movie/upcoming?language=en-US&page=1`, options)
   const data = await respponse.json();
-  const upcomingMovie = data.results;
+  const upcomingMovie = data.results.slice(0,5);
   for (const movie of upcomingMovie){
     const movieDetailsResponse = await fetch (`${BASEURL}/3/movie/${movie.id}?language=en-US`,options);
     const movieDetails = await movieDetailsResponse.json();
@@ -54,3 +49,9 @@ const getUpcomingMovie = async () =>{
 onMounted(getUpcomingMovie);
 
 </script>
+
+<style scoped>
+  .movie-title{
+    color: white !important;
+  }
+</style>
