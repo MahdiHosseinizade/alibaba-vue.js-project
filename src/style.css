@@ -69,7 +69,7 @@ header{
     background-color: var(--bg-color);
 }
 
-.logo{
+.headerLogo{
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-color);
@@ -78,7 +78,7 @@ header{
     text-transform: uppercase;
     
 }
-.logo i{
+.headerLogo i{
     color: var(--main-color);
     margin-right: 5px;
 }

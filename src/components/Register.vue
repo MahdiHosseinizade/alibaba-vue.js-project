@@ -1,17 +1,21 @@
 <template>
-    <title>Login </title>
+    <title>Register </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
-    <header>
+    <header class="header-register">
       <RouterLink to="/" class="logo">
         <i class='bx bxs-movie'></i>IMDB
       </RouterLink>
     </header>
-    <main class="loginHeader">
+    <main class="registerHeader">
     <header class=" header_form">
       <nav class="navBar">
         <ul>
-          <li><a href="./login.vue" >Sign In</a></li>
+          <li>
+            <RouterLink to="login">
+              SignIn
+            </RouterLink>
+          </li>
           <li>
             <RouterLink to="register" class="active">
               Create Account
@@ -20,7 +24,7 @@
         </ul>
       </nav>
     </header>
-    <section class="loginForm">
+    <section class="registerForm">
       <form>
         <div>
           <label for="username">Username or Email Address</label>
@@ -39,7 +43,9 @@
           <label for="rememberMe">Remember Me</label>
         </div>
         <button type="submit">Sign In</button>
-        <p><a href="./login.html">Already have an account ?</a></p>
+        <p>
+          <RouterLink to="login">Already have an account ?</RouterLink>
+        </p>
       </form>
     </section>
    </main>
@@ -89,19 +95,23 @@ body {
   background-color: #fff;
 }
 
-header {
+.header-register {
   background-color: var(--main-color);
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  /* border-radius: 10px; */
-  /* width: 100%; */
 }
 .header_form{
   width: 100%;
   border-radius: 10px;
+  background-color: var(--main-color);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
 a{
   text-decoration: none;
@@ -128,7 +138,7 @@ ul{
   margin-right: 10px;
 }
 
-.loginHeader {
+.registerHeader {
   width: 500px;
   background-color: var(--bg-color);
   padding: 30px;
@@ -160,16 +170,16 @@ ul{
   border-bottom: #b0afab;
 }
 
-.loginForm h1 {
+.registerForm h1 {
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
-.loginForm form div {
+.registerForm form div {
   margin-bottom: 30px;
 }
 
-.loginForm label {
+.registerForm label {
   display: block;
   font-size: 1.2rem;
   margin-bottom: 7px;
@@ -177,8 +187,8 @@ ul{
   margin-top: 20px;
 }
 
-.loginForm input[type="text"],
-.loginForm input[type="password"] {
+.registerForm input[type="text"],
+.registerForm input[type="password"] {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -216,11 +226,11 @@ button[type="submit"]:hover {
   color: var(--bg-color);
 }
 
-.loginForm p {
+.registerForm p {
   margin-top: 20px;
 }
 
-.loginForm a {
+.registerForm a {
   color: var(--main-color);
 }
 
@@ -239,18 +249,18 @@ button[type="submit"]:hover {
   .logo {
     margin-bottom: 20px;
   }
-  .loginForm input[type="text"],
-  .loginForm input[type="password"]{
+  .registerForm input[type="text"],
+  .registerForm input[type="password"]{
     width: 96%;
   }
 
-  .loginHeader {
+  .registerHeader {
     width: 90%;
     padding: 20px;
     margin-top: 30px;
   }
 
-  .loginForm label {
+  .registerForm label {
     text-align: left;
     margin-top: 10px;
   }

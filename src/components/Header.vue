@@ -1,8 +1,6 @@
 <template>
-    <head>
-    </head>
     <header>
-        <a href="" class="logo">
+        <a href="" class="headerLogo">
             <i class='bx bxs-movie'></i>IMDB
         </a>
 
@@ -13,7 +11,7 @@
             <li><a href="#search">Search</a></li> 
         </ul>
         <div class="cc">
-           <RouterLink to="register" class="signInbtn">Sign In</RouterLink>
+           <RouterLink to="login" class="signInbtn">Sign In</RouterLink>
            <div class="icon" @click="openMenu">
               <span class="fas fa-bars"></span>
             </div>
@@ -22,7 +20,7 @@
         <div class="menuBurger" ref="menuBurgerRef">
             <ul>
                 <li><a class="fas fa-times close-hamburger"></a></li>
-                <li><a href="./login.html" class="">Sign In</a></li>
+                <li><a class="">Sign In</a></li>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#movies">Series</a></li>
                 <li><a href="#coming">Movie</a></li>

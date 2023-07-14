@@ -2,23 +2,29 @@
     <title>Login </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
-    <header>
-      <a href="../html/index.html" class="logo">
-          <i class='bx bxs-movie'></i>IMDB 
-      </a>
+    <header class="header-login">
+      <RouterLink to="/" class="logo">
+        <i class='bx bxs-movie'></i>IMDB
+      </RouterLink>
     </header>
-
    <main class="loginHeader">
-    <header class="header_form">
+    <header class=" header_form">
       <nav class="navBar">
         <ul>
-          <li><a href="./login.html" class="active">Sign In</a></li>
-          <li><a href="./signup.html">Create Account</a></li>
+          <li>
+            <RouterLink to="login" class="active">
+              SignIn
+            </RouterLink>
+          </li>
+          <li>
+            <RouterLink to="register" >
+              Create Account
+            </RouterLink>
+          </li>
         </ul>
       </nav>
     </header>
     <section class="loginForm">
-      <!-- <h1>Sign in to your account</h1> -->
       <form>
         <div>
           <label for="username">Username or Email Address</label>
@@ -33,13 +39,14 @@
           <label for="rememberMe">Remember Me</label>
         </div>
         <button class="btn-signIn" type="submit">Log In</button>
-        <p><a href="./signup.html">Don't have an account ?</a></p>
+        <p>
+          <RouterLink to="register">Don't have an account ?</RouterLink>
+        </p>
       </form>
     </section>
    </main>
 </template>
 <script setup>
-
 </script>
 
 <style>
@@ -82,19 +89,23 @@ body {
   background-color: #fff;
 }
 
-header {
+.header-login {
   background-color: var(--main-color);
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  /* border-radius: 10px; */
-  /* width: 100%; */
 }
 .header_form{
   width: 100%;
   border-radius: 10px;
+  background-color: var(--main-color);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
 a{
   text-decoration: none;
