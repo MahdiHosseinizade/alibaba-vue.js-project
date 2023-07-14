@@ -1,3 +1,9 @@
+<!-- <div v-for="(actor, index) in cast" :key="index" class="scroll">
+  <section>
+    <img :src="`${imageBaseURL}${imageSize}${actor.profile_path}`" />
+    <h4>{{ actor.name }}</h4>
+  </section>
+</div> -->
 <template>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
@@ -33,16 +39,72 @@
       <div class="category">
         <div class="actors">
           <h2>Actors</h2>
-          <div v-for="(actor, index) in cast" :key="index" class="scroll">
-            <section>
+          <div class="scroll">
+            <section v-for="(actor, index) in cast" :key="index" class="casr-card">
               <img :src="`${imageBaseURL}${imageSize}${actor.profile_path}`" />
               <h4>{{ actor.name }}</h4>
             </section>
           </div>
-
         </div>
+        <section class="reviews">
+          <h2 v-if="comments.length">Reviews</h2>
+          <div class="scroll">
+            <div v-for="(comment, index) in comments" :key="index" class="review">
+              <div class="user">
+                <img :src="imageComment[index]" />
+                <h4>{{ comment.author_details.username }}</h4>
+              </div>
+              <p>
+                {{ comment.content }}
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
+      <div class="side">
+        <h2>More Information</h2>
+        <section class="social_links">
+          <div class="social">
+            <i class="fab fa-facebook-f"></i>
+          </div>
+          <div class="social">
+            <i class="fab fa-twitter"></i>
+          </div>
+          <div class="social">
+            <i class="fab fa-instagram"></i>
+          </div>
+          <div class="social">
+            <i class="fab fa-youtube"></i>
+          </div>
+        </section>
 
+        <article class="information_side">
+          <div class="grid">
+            <div>
+              <strong><bdi>Status</bdi></strong>
+            </div>
+            <div>{{ movieDetail.status }}</div>
+            <div>
+              <strong><bdi>Original Language</bdi></strong>
+            </div>
+            <div>{{ movieDetail.original_language }}</div>
+            <div>
+              <strong><bdi>runtime</bdi></strong>
+            </div>
+            <div>{{ movieDetail.runtime }}</div>
+            <div>
+              <strong><bdi>revenue</bdi></strong>
+            </div>
+            <div>{{ movieDetail.revenue }}</div>
+          </div>
+        </article>
+        <section class="keywords_side">
+          <h4>Keywords</h4>
+          <ul v-for="(genre, index) in movieDetail.genres" :key="index">
+            <li>{{ genre.name }}</li>
+          </ul>
+        </section>
+      </div>
     </section>
 
   </main>
@@ -53,11 +115,15 @@ import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { ACCESS_TOKEN, BASEURL } from '../constants/apiConstants';
 import { imageBaseURL, imageSize } from '../constants/imageAPI';
+import defaultImage from '../assets/images/defaultImage.png'
+
 const route = useRoute();
 const movieId = ref(route.params.id);
 const movieDetail = ref([]);
 const cast = ref([]);
 const crew = ref([]);
+const comments = ref([]);
+const imageComment = ref([])
 const options = {
   method: 'GET',
   headers: {
@@ -74,15 +140,29 @@ const getMovieDetaile = async () => {
 const getActors = async () => {
   const response = await fetch(`${BASEURL}/3/movie/${movieId.value}/credits?language=en-US`, options);
   const data = await response.json();
-  // actors.value = data ;
   cast.value = data.cast;
   crew.value = data.crew;
 }
+
+const getComments = async () => {
+  const response = await fetch(`${BASEURL}/3/movie/${movieId.value}/reviews?language=en-US&page=1`, options);
+  const data = await response.json();
+  comments.value = data.results;
+  imageComment.value = comments.value.map(comment => {
+    const avatarPath = comment.author_details.avatar_path;
+    if (avatarPath && avatarPath !== 'null') {
+      return avatarPath.substring(1);
+    }
+    return defaultImage ;
+  });
+};
+
 
 onMounted(
   async () => {
     await getMovieDetaile();
     await getActors();
+    await getComments();
   }
 )
 
@@ -148,6 +228,7 @@ header {
   align-items: center;
   padding: 8px;
   width: 100%;
+  z-index: 10000;
 }
 
 .logo {
@@ -270,10 +351,18 @@ body {
 }
 
 
-.actors,
+.actors{
+  padding: 30px;
+  align-self: center;
+  color: var(--text-color-color);
+}
 .reviews {
   padding: 30px;
   align-self: center;
+  color: var(--bg-color);
+}
+.reviews h2{
+  color: var(--text-color);
 }
 
 .scroll {
@@ -281,6 +370,10 @@ body {
   white-space: nowrap;
   overflow-y: scroll;
 
+}
+
+.casr-card {
+  margin-right: 1%;
 }
 
 .scroll::-webkit-scrollbar {}
@@ -300,7 +393,7 @@ body {
   /* min-width:140px;
     min-height: 210px; */
   border-radius: 10px;
-  background-color: blueviolet;
+  background-color: rgb(169, 166, 151);
   margin: 10px 20px 0 0;
   height: 300px;
 
@@ -332,6 +425,7 @@ body {
   margin: 20px 0;
   text-align: center;
   font-weight: 500;
+  color: var(--bg-color);
 }
 
 .side {
@@ -356,9 +450,11 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: var(--bg-color);
 }
 
 .information_side .grid {
+  color: var(--bg-color);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 20px;
@@ -388,7 +484,7 @@ body {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   justify-content: flex-start;
 }
 
