@@ -47,11 +47,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref,inject } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-import { login } from '../utils/LoginUtils';
+
 const router = useRouter();
 
+const login = inject("login");
 const username = ref("");
 const password = ref("");
 
