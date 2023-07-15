@@ -1,53 +1,74 @@
 <template>
-    <title>Login </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
+  <div>
     <header class="header-login">
       <RouterLink to="/" class="logo">
         <i class='bx bxs-movie'></i>IMDB
       </RouterLink>
     </header>
-   <main class="loginHeader">
-    <header class=" header_form">
-      <nav class="navBar">
-        <ul>
-          <li>
-            <RouterLink to="login" class="active">
-              SignIn
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink to="register" >
-              Create Account
-            </RouterLink>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <section class="loginForm">
-      <form>
-        <div>
-          <label for="username">Username or Email Address</label>
-          <input type="text" name="username" id="username" placeholder="Enter your username or email address">
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Enter your password">
-        </div>
-        <div class="rememberMe">
-          <input type="checkbox" name="rememberMe" id="rememberMe">
-          <label for="rememberMe">Remember Me</label>
-        </div>
-        <button class="btn-signIn" type="submit">Log In</button>
-        <p>
-          <RouterLink to="register">Don't have an account ?</RouterLink>
-        </p>
-      </form>
-    </section>
-   </main>
+    <main class="loginHeader">
+      <header class="header_form">
+        <nav class="navBar">
+          <ul>
+            <li>
+              <RouterLink to="login" class="active">
+                SignIn
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink to="register">
+                Create Account
+              </RouterLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <section class="loginForm">
+        <form @submit.prevent="loginHandler">
+          <div>
+            <label for="username">Username or Email Address</label>
+            <input v-model="username" type="text" name="username" id="username" placeholder="Enter your username or email address">
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input v-model="password" type="password" name="password" id="password" placeholder="Enter your password">
+          </div>
+          <div class="rememberMe">
+            <input type="checkbox" name="rememberMe" id="rememberMe">
+            <label for="rememberMe">Remember Me</label>
+          </div>
+          <button class="btn-signIn" type="submit">Log In</button>
+          <p>
+            <RouterLink to="register">Don't have an account?</RouterLink>
+          </p>
+        </form>
+      </section>
+    </main>
+  </div>
 </template>
+
 <script setup>
+import { ref } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+import { login } from '../utils/LoginUtils';
+const router = useRouter();
+
+const username = ref("");
+const password = ref("");
+
+async function loginHandler() {
+  try {
+    await login(username.value, password.value);
+    router.push("/");
+  } catch (error) {
+    console.log(error);
+    alert(error);
+  }
+}
+
+
+
 </script>
+
 
 <style>
     ::selection{

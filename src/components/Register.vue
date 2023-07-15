@@ -1,55 +1,55 @@
 <template>
-    <title>Register </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
+  <div>
     <header class="header-register">
       <RouterLink to="/" class="logo">
         <i class='bx bxs-movie'></i>IMDB
       </RouterLink>
     </header>
     <main class="registerHeader">
-    <header class=" header_form">
-      <nav class="navBar">
-        <ul>
-          <li>
-            <RouterLink to="login">
-              SignIn
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink to="register" class="active">
-              Create Account
-            </RouterLink>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <section class="registerForm">
-      <form>
-        <div>
-          <label for="username">Username or Email Address</label>
-          <input type="text" name="username" id="username" placeholder="Enter your username or email address">
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Enter your password">
-        </div>
-        <div>
-            <label for="password">Password Confrimation</label>
+      <header class="header_form">
+        <nav class="navBar">
+          <ul>
+            <li>
+              <RouterLink to="login">
+                SignIn
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink to="register" class="active">
+                Create Account
+              </RouterLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <section class="registerForm">
+        <form action="https://www.themoviedb.org/signup">
+          <div>
+            <label for="username">Username or Email Address</label>
+            <input type="text" name="username" id="username" placeholder="Enter your username or email address">
+          </div>
+          <div>
+            <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="Enter your password">
           </div>
-        <div class="rememberMe">
-          <input type="checkbox" name="rememberMe" id="rememberMe">
-          <label for="rememberMe">Remember Me</label>
-        </div>
-        <button type="submit">Sign In</button>
-        <p>
-          <RouterLink to="login">Already have an account ?</RouterLink>
-        </p>
-      </form>
-    </section>
-   </main>
+          <div>
+            <label for="passwordConfirmation">Password Confirmation</label>
+            <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirm your password">
+          </div>
+          <div class="rememberMe">
+            <input type="checkbox" name="rememberMe" id="rememberMe">
+            <label for="rememberMe">Remember Me</label>
+          </div>
+          <button type="submit">Sign In</button>
+          <p>
+            <RouterLink to="login">Already have an account?</RouterLink>
+          </p>
+        </form>
+      </section>
+    </main>
+  </div>
 </template>
+
 
 <script setup>
 
