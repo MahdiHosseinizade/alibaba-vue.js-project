@@ -23,28 +23,14 @@
         </nav>
       </header>
       <section class="registerForm">
-        <form action="https://www.themoviedb.org/signup">
-          <div>
-            <label for="username">Username or Email Address</label>
-            <input type="text" name="username" id="username" placeholder="Enter your username or email address">
-          </div>
-          <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter your password">
-          </div>
-          <div>
-            <label for="passwordConfirmation">Password Confirmation</label>
-            <input type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Confirm your password">
-          </div>
-          <div class="rememberMe">
-            <input type="checkbox" name="rememberMe" id="rememberMe">
-            <label for="rememberMe">Remember Me</label>
-          </div>
-          <button type="submit">Sign In</button>
-          <p>
-            <RouterLink to="login">Already have an account?</RouterLink>
-          </p>
-        </form>
+        <div style="text-align: center;">
+          <h2>Register on The Movie DB</h2>
+          <p>To register on the site you should create an account on the Movie DB</p>
+          <a href="https://www.themoviedb.org/signup" class="registerButton">Register</a>
+        </div>
+        <p style="text-align: center; margin-top: 40px;">
+            <RouterLink to="login">Already have an account ?</RouterLink>
+        </p>
       </section>
     </main>
   </div>
@@ -147,7 +133,9 @@ ul{
   margin: 0 auto;
   margin-top: 50px;
 }
-
+.registerButton{
+  margin-top: 20px;
+}
 .navBar{
   width: 100%;
 }
@@ -170,64 +158,13 @@ ul{
   border-bottom: #b0afab;
 }
 
-.registerForm h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.registerForm form div {
-  margin-bottom: 30px;
-}
-
-.registerForm label {
-  display: block;
-  font-size: 1.2rem;
-  margin-bottom: 7px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.registerForm input[type="text"],
-.registerForm input[type="password"] {
+.registerForm {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-}
-
-.rememberMe {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.rememberMe label {
-  margin-left: 10px;
-  font-size: 1.1rem;
-}
-
-button[type="submit"] {
-  background-color: var(--bg-color);
-  border: 1px solid var(--main-color);
-  color: var(--main-color);
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: block;
-  margin: 0 auto;
-}
-
-
-button[type="submit"]:hover {
-  background-color: var(--main-color);
-  color: var(--bg-color);
+  margin-top: 50px;
 }
 
 .registerForm p {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .registerForm a {
@@ -235,7 +172,6 @@ button[type="submit"]:hover {
 }
 
 @media screen and (max-width: 557px) {
-  /* header styles */
   header {
     flex-direction: column;
     align-items: flex-start;
@@ -249,22 +185,13 @@ button[type="submit"]:hover {
   .logo {
     margin-bottom: 20px;
   }
-  .registerForm input[type="text"],
-  .registerForm input[type="password"]{
-    width: 96%;
-  }
+
 
   .registerHeader {
     width: 90%;
     padding: 20px;
     margin-top: 30px;
   }
-
-  .registerForm label {
-    text-align: left;
-    margin-top: 10px;
-  }
-
   .navBar ul{
     display: flex;
     flex-direction: row;
