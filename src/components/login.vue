@@ -58,7 +58,7 @@ const password = ref("");
 async function loginHandler() {
   try {
     await login(username.value, password.value);
-    router.push("/");
+    router.replace("/");
   } catch (error) {
     console.log(error);
     alert(error);
