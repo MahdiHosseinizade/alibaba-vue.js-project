@@ -23,14 +23,17 @@
         </nav>
       </header>
       <section class="loginForm">
-        <form @submit.prevent="loginHandler">
+        <form  @submit.prevent="loginHandler">
           <div>
             <label for="username">Username or Email Address</label>
-            <input v-model="username" type="text" name="username" id="username" placeholder="Enter your username or email address">
+            <input v-model="username" type="text" name="username" id="username"
+              placeholder="Enter your username "
+              class="w-full h-10 px-4 py-2 rounded-md border border-yellow-700">
           </div>
           <div>
             <label for="password">Password</label>
-            <input v-model="password" type="password" name="password" id="password" placeholder="Enter your password">
+            <input v-model="password" type="password" name="password" id="password" placeholder="Enter your password"
+              class="w-full h-10 px-4 py-2 text-black rounded-md border border-yellow-700">
           </div>
           <div class="rememberMe">
             <input type="checkbox" name="rememberMe" id="rememberMe">
@@ -47,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref,inject } from "vue";
+import { ref, inject } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 
 const router = useRouter();
@@ -71,33 +74,36 @@ async function loginHandler() {
 </script>
 
 
-<style>
-    ::selection{
+<style scoped>
+::selection {
   color: #020307;
   background-color: #fff;
 }
-html::-webkit-scrollbar{
+
+html::-webkit-scrollbar {
   width: 0.5rem;
-  background-color:var(--bg-color);
+  background-color: var(--bg-color);
 }
-html::-webkit-scrollbar-thumb{
+
+html::-webkit-scrollbar-thumb {
   background-color: var(--main-color);
   border-radius: 5;
 }
 
 
 :root {
-  
-  --main-color:#F5C518;
-  --text-color:#fff;
-  --bg-color:#000000;
+
+  --main-color: #F5C518;
+  --text-color: #fff;
+  --bg-color: #000000;
 }
 
 @font-face {
-  font-family: RegularEnglish ;
+  font-family: RegularEnglish;
   src: url(../assets/fonts/Nunito-Regular.ttf);
 }
-*{
+
+* {
   font-family: RegularEnglish;
   margin: 0;
   padding: 0;
@@ -106,7 +112,8 @@ html::-webkit-scrollbar-thumb{
 body {
   background-color: var(--bg-color);
 }
-::selection{
+
+::selection {
   color: #020307;
   background-color: #fff;
 }
@@ -119,7 +126,8 @@ body {
   align-items: center;
   padding: 10px;
 }
-.header_form{
+
+.header_form {
   width: 100%;
   border-radius: 10px;
   background-color: var(--main-color);
@@ -129,16 +137,20 @@ body {
   align-items: center;
   padding: 10px;
 }
-a{
+
+a {
   text-decoration: none;
 }
-ul{
+
+ul {
   list-style: none;
 }
-.active{
+
+.active {
   border-bottom: 3px solid var(--bg-color);
   transition: all 0.3s ease-in-out !important;
 }
+
 .logo {
   font-size: 2rem;
   font-weight: bold;
@@ -164,24 +176,27 @@ ul{
   margin-top: 50px;
 }
 
-.navBar{
+.navBar {
   width: 100%;
 }
-.navBar ul{
+
+.navBar ul {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
-.navBar ul li{
+
+.navBar ul li {
   width: 100%;
   text-align: center;
 }
 
-.navBar a{
+.navBar a {
   color: var(--bg-color);
   text-decoration: none;
 }
-.navBar a:active{
+
+.navBar a:active {
   color: red;
   border-bottom: #b0afab;
 }
@@ -201,15 +216,6 @@ ul{
   margin-bottom: 7px;
   text-align: center;
   margin-top: 20px;
-}
-
-.loginForm input[type="text"],
-.loginForm input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
 }
 
 .rememberMe {
@@ -251,24 +257,19 @@ button[type="submit"]:hover {
 }
 
 @media screen and (max-width: 557px) {
-  /* header styles */
+
   header {
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
   }
 
-  .header_form{
-    width: 96%;
-  }
+
 
   .logo {
     margin-bottom: 20px;
   }
-  .loginForm input[type="text"],
-  .loginForm input[type="password"]{
-    width: 96%;
-  }
+
 
   .loginHeader {
     width: 90%;
@@ -281,17 +282,15 @@ button[type="submit"]:hover {
     margin-top: 10px;
   }
 
-  .navBar ul{
+  .navBar ul {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 10px;
   }
 
-  .navBar ul li{
+  .navBar ul li {
     margin-left: 0;
   }
 
-}
-
-</style>
+}</style>

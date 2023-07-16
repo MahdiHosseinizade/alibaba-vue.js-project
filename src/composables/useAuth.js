@@ -1,10 +1,10 @@
-import { BASEURL, ACCESS_TOKEN } from "../constants/apiConstants";
+import { BASEURL, ACCESS_TOKEN } from "@/constants/apiConstants";
 import {
 	CREATE_REQUEST_TOKEN_URL,
 	CREATE_SESSION_URL,
 	VALIDATE_WITH_LOGIN_URL,
 	ACCOUNT_URL,
-} from "../constants/endpoints";
+} from "@/constants/endpoints";
 import { computed } from "vue";
 
 export default function useAuth(app) {
@@ -99,6 +99,6 @@ export default function useAuth(app) {
 
 		user.value = await getAccountData();
 	}
-    app.provide('user', user.value);
+    app.provide('user', user);
     app.provide('login', login);
 }

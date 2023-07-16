@@ -11,7 +11,7 @@
             <li><a href="#search">Search</a></li> 
         </ul>
         <div class="cc">
-           <RouterLink v-if="!user.id" to="login" class="signInbtn">Sign In</RouterLink>
+           <RouterLink v-if="!user || !user.value || !user.value.id" to="login" class="signInbtn">Sign In</RouterLink>
            <h3 v-else >Profile</h3>
            <div class="icon" @click="openMenu">
               <span class="fas fa-bars"></span>
@@ -21,7 +21,7 @@
         <div class="menuBurger" ref="menuBurgerRef">
             <ul>
                 <li><a class="fas fa-times close-hamburger"></a></li>
-                <li v-if="!user.id"><RouterLink to="login">Sign In</RouterLink></li>
+                <li v-if="!user || !user.value || !user.value.id"><RouterLink to="login">Sign In</RouterLink></li>
                 <li v-else ><h3>Profile</h3></li>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#movies">Series</a></li>
@@ -43,7 +43,7 @@ const menuBurgerRef = ref(null);
 
 
 const openMenu = () =>{
-    menuBurgerRef.value.style.right = '0';
+    menuBurgerRef.value.style.display = 'block';
 };
 
 </script>
