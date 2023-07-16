@@ -27,8 +27,8 @@
 <script setup>
 
 import { onMounted, ref } from 'vue';
-import { imageBaseURL, imageSize } from '../constants/imageAPI';
-import { ACCESS_TOKEN, BASEURL } from '../constants/apiConstants'
+import { imageBaseURL, imageSize } from '@/constants/imageAPI';
+import { ACCESS_TOKEN, BASEURL } from '@/constants/apiConstants'
 const seriesList = ref([]);
 const movieInfo = ref('');
 const isLoading = ref(true);

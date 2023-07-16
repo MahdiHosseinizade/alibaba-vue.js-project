@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-import { imageBaseURL, imageSize } from '../constants/imageAPI';
-import { ACCESS_TOKEN, BASEURL } from '../constants/apiConstants'
+import { imageBaseURL, imageSize } from '@/constants/imageAPI';
+import { ACCESS_TOKEN, BASEURL } from '@/constants/apiConstants'
 import { onMounted, ref } from 'vue';
 const movieList = ref([]);
 const movieInfo = ref('');
