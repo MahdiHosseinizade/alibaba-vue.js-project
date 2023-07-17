@@ -13,11 +13,11 @@
         <div class="cc">
             <RouterLink v-if="!user" to="login" class="signInbtn">Sign In</RouterLink>
             <div v-else class="flex ml-8 items-center space-x-4">
-                <img class="w-10 h-10 rounded-full" src="../assets/images/alex.jpg" alt="">
+                <span class="bg-yellow-100 text-black text-sm font-medium mr-2 px-2.5 py-1 rounded dark:bg-yellow-400 dark:text-balck hover:cursor-pointer" >{{ user && user.username ? user.username : '' }}</span>
             </div>
-            <div class="icon" @click="openMenu">
+            <!-- <div class="icon" @click="openMenu">
                 <span class="fas fa-bars"></span>
-            </div>
+            </div> -->
         </div>
 
         <div class="menuBurger" ref="menuBurgerRef">
@@ -26,11 +26,13 @@
                 <li v-if="!user">
                     <RouterLink to="login">Sign In</RouterLink>
                 </li>
-                <li v-else><a>Profile</a></li>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#movies">Series</a></li>
-                <li><a href="#coming">Movie</a></li>
-                <li><a href="#search">Search</a></li>
+                <div v-else>
+                    <li><a>Profile</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#movies">Series</a></li>
+                    <li><a href="#coming">Movie</a></li>
+                    <li><a href="#search">Search</a></li>
+                </div>
             </ul>
         </div>
     </header>
@@ -40,7 +42,7 @@
 import { inject, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 const user = inject('user');
-console.log(user);
+console.log(user.value.username);
 const menuBurgerRef = ref(null);
 
 
