@@ -8,21 +8,25 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#movies">Series</a></li>
             <li><a href="#coming">Movie</a></li>
-            <li><a href="#search">Search</a></li> 
+            <li><a href="#search">Search</a></li>
         </ul>
         <div class="cc">
-           <RouterLink v-if="!user || !user.value || !user.value.id" to="login" class="signInbtn">Sign In</RouterLink>
-           <h3 v-else >Profile</h3>
-           <div class="icon" @click="openMenu">
-              <span class="fas fa-bars"></span>
+            <RouterLink v-if="!user" to="login" class="signInbtn">Sign In</RouterLink>
+            <div v-else class="flex ml-8 items-center space-x-4">
+                <img class="w-10 h-10 rounded-full" src="../assets/images/alex.jpg" alt="">
+            </div>
+            <div class="icon" @click="openMenu">
+                <span class="fas fa-bars"></span>
             </div>
         </div>
 
         <div class="menuBurger" ref="menuBurgerRef">
             <ul>
                 <li><a class="fas fa-times close-hamburger"></a></li>
-                <li v-if="!user || !user.value || !user.value.id"><RouterLink to="login">Sign In</RouterLink></li>
-                <li v-else ><h3>Profile</h3></li>
+                <li v-if="!user">
+                    <RouterLink to="login">Sign In</RouterLink>
+                </li>
+                <li v-else><a>Profile</a></li>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#movies">Series</a></li>
                 <li><a href="#coming">Movie</a></li>
@@ -42,11 +46,10 @@ const menuBurgerRef = ref(null);
 
 
 
-const openMenu = () =>{
+const openMenu = () => {
     menuBurgerRef.value.style.display = 'block';
 };
 
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

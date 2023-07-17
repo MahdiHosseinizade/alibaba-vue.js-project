@@ -1,6 +1,6 @@
 <template>
-  <section id="movies" class="movies">
-    <h2 class="heading">Series</h2>
+  <section id="coming" class="movies">
+    <h2 class="heading">Movie</h2>
 
     <div class="">
       <div v-if="isLoading" v-for="(_, index) in skeletonCount" :key="index" class="skeleton-loader movie-container">
@@ -9,14 +9,22 @@
         <div class="skeleton-info"></div>
       </div>
       <div v-else class="movie-container">
-        <div v-for="(series, index) in seriesList" :key="index" class="box">
-          <RouterLink :to="{name:'movie',params:{id:series.id}}">
-            <div class="box-img">
-              <img :src="`${imageBaseURL}${imageSize}${series.poster_path}`" :alt="series.title">
+        <div v-for="(series, index) in seriesList" :key="index" class="box relative">
+          <div
+            class="box-img group relative rounded-md overflow-hidden transition duration-500 hover:brightness-100 hover:scale-105">
+            <img :src="`${imageBaseURL}${imageSize}${series.poster_path}`" :alt="series.title" class="object-cover">
+            <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex  justify-center items-center opacity-0
+        transition-opacity duration-300 group-hover:opacity-100">
+              <RouterLink :to="{ name: 'movie', params: { id: series.id } }"><i
+                  class="fas fa-arrow-right  h-12 w-12 p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-zinc-300 ">
+                </i></RouterLink>
+
+              <i
+class="fas fa-bookmark text-yellow-300 h-12 w-12 opacity-0 transition-opacity duration-300 cursor-pointer group-hover:opacity-100 hover:text-yellow-600 p-3"></i>
             </div>
-            <h3 class="movie-title">{{ series.title }}</h3>
-            <span class="movie-info">{{ movieInfo }}</span>
-          </RouterLink>
+          </div>
+          <h3 class="movie-title">{{ series.title }}</h3>
+          <span class="movie-info">{{ movieInfo }}</span>
         </div>
       </div>
     </div>
