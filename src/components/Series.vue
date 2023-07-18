@@ -49,7 +49,7 @@ const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: `Bearer ${ACCESS_TOKEN} `
+    Authorization: `Bearer ${ACCESS_TOKEN}`
   }
 };
 
