@@ -43,7 +43,6 @@
 import { inject, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 const user = inject('user');
-// console.log(user.value.username);
 const menuBurgerRef = ref(null);
 
 

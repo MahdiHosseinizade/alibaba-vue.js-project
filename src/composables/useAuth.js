@@ -1,4 +1,4 @@
-import { BASEURL, ACCESS_TOKEN } from "@/constants/apiConstants";
+import { BASEURL, API_READ_ACCESS_TOKEN } from "@/constants/apiConstants";
 import {
 	CREATE_REQUEST_TOKEN_URL,
 	CREATE_SESSION_URL,
@@ -16,8 +16,9 @@ export default function useAuth(app) {
 		const res = await fetch(`${BASEURL}/3/${CREATE_REQUEST_TOKEN_URL}`, {
 			headers: {
 				accept: "application/json",
-				Authorization: `Bearer ${ACCESS_TOKEN}`,
+				Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
 			},
+			
 		});
 		const data = await res.json();
 		if (!data.success) {
@@ -32,7 +33,7 @@ export default function useAuth(app) {
 			headers: {
 				accept: "application/json",
 				"content-type": "application/json",
-				Authorization: `Bearer ${ACCESS_TOKEN}`,
+				Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
 			},
 			body: JSON.stringify({
 				username: username,
@@ -56,7 +57,7 @@ export default function useAuth(app) {
 			headers: {
 				accept: "application/json",
 				"content-type": "application/json",
-				Authorization: `Bearer ${ACCESS_TOKEN}`,
+				Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
 			},
 			body: JSON.stringify({ request_token: requestToken }),
 		};
@@ -80,7 +81,7 @@ export default function useAuth(app) {
 		const options = {
 			headers: {
 				accept: "application/json",
-				Authorization: `Bearer ${ACCESS_TOKEN}`,
+				Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
 			},
 		};
 		const res = await fetch(url, options);

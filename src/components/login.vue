@@ -64,7 +64,6 @@ async function loginHandler() {
     await login(username.value, password.value);
     router.replace("/");
   } catch (error) {
-    console.log(error);
     alert(error);
   }
 }
