@@ -20,7 +20,8 @@
                 </i></RouterLink>
 
               <i
-class="fas fa-bookmark text-yellow-300 h-12 w-12 opacity-0 transition-opacity duration-300 cursor-pointer group-hover:opacity-100 hover:text-yellow-600 p-3"></i>
+                @click="addMovieToWatchList(movie.id)"
+                class="fas fa-bookmark text-yellow-300 h-12 w-12 opacity-0 transition-opacity duration-300 cursor-pointer group-hover:opacity-100 hover:text-yellow-600 p-3"></i>
             </div>
           </div>
           <h3 class="movie-title">{{ movie.title }}</h3>
@@ -33,13 +34,14 @@ class="fas fa-bookmark text-yellow-300 h-12 w-12 opacity-0 transition-opacity du
 
 <script setup>
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
-import { ACCESS_TOKEN, BASEURL } from '@/constants/apiConstants'
-import { onMounted, ref } from 'vue';
+import { ACCESS_TOKEN, BASEURL,API_KEY } from '@/constants/apiConstants'
+import { inject, onMounted, ref } from 'vue';
 const movieList = ref([]);
 const movieInfo = ref('');
 const isLoading = ref(true);
 const skeletonCount = ref(3);
-
+const user = inject('user');
+console.log(user.value);
 
 const options = {
   method: 'GET',
@@ -62,6 +64,40 @@ const getUpcomingMovie = async () => {
   }
   movieList.value = upcomingMovie;
   isLoading.value = false;
+}
+
+const addMovieToWatchList = (movieId) =>{
+  try {
+    if(!user.value){
+      alert('Please login to add movie to watchlist');
+      return;
+    }
+    const session_id = sessionStorage.getItem('session_id');
+    if (!session_id) {
+      alert('Please login to add movie to watchlist');
+      return;
+    }
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization : `Bearer ${ACCESS_TOKEN}`
+      },
+      body: JSON.stringify({
+        media_type: 'movie',
+        media_id: movieId,
+        watchlist: true
+      })
+    };
+    fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        alert('Movie added to watchlist');
+      });
+  } catch (error) {
+    alert('Something went wrong');
+  }
 }
 onMounted(getUpcomingMovie);
 

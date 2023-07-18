@@ -11,13 +11,14 @@
             <li><a href="#search">Search</a></li>
         </ul>
         <div class="cc">
-            <RouterLink v-if="!user" to="login" class="signInbtn">Sign In</RouterLink>
-            <div v-else class="flex ml-8 items-center space-x-4">
-                <span class="bg-yellow-100 text-black text-sm font-medium mr-2 px-2.5 py-1 rounded dark:bg-yellow-400 dark:text-balck hover:cursor-pointer" >{{ user && user.username ? user.username : '' }}</span>
+            <div v-if="!user">
+                <RouterLink  to="login" class="signInbtn">Sign In</RouterLink>
             </div>
-            <!-- <div class="icon" @click="openMenu">
-                <span class="fas fa-bars"></span>
-            </div> -->
+            <div v-else class="flex ml-8 items-center space-x-4">
+                <RouterLink  to="profile">
+                    <span class="bg-yellow-100 text-black text-sm font-medium mr-2 px-2.5 py-1 rounded dark:bg-yellow-400 dark:text-balck hover:cursor-pointer" >{{ user && user.username ? user.username : '' }}</span>
+                </RouterLink>
+            </div>
         </div>
 
         <div class="menuBurger" ref="menuBurgerRef">
@@ -42,7 +43,7 @@
 import { inject, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 const user = inject('user');
-console.log(user.value.username);
+// console.log(user.value.username);
 const menuBurgerRef = ref(null);
 
 

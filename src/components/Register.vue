@@ -99,9 +99,7 @@ body {
   align-items: center;
   padding: 10px;
 }
-a{
-  text-decoration: none;
-}
+
 ul{
   list-style: none;
 }
@@ -154,7 +152,7 @@ ul{
   text-decoration: none;
 }
 .navBar a:active{
-  color: red;
+  color: rgb(255, 230, 0);
   border-bottom: #b0afab;
 }
 
