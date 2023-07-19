@@ -43,12 +43,14 @@
 <script setup>
 import { inject, onMounted, ref } from 'vue';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
-import { API_READ_ACCESS_TOKEN, BASEURL,API_KEY } from '@/constants/apiConstants'
+import { API_READ_ACCESS_TOKEN, BASEURL,API_KEY } from '@/constants/apiConstants';
+import { useToast } from 'vue-toastification';
 const movieList = ref([]);
 const movieInfo = ref('');
 const isLoading = ref(true);
 const skeletonCount = ref(3);
 const user = inject('user');
+const toast = useToast();
 
 
 const options = {
@@ -73,7 +75,7 @@ const getUpcomingMovie = async () => {
 const addMovieToWatchList = (movieId) =>{
   try {
     if(!user.value){
-      alert('Please login to add movie to watchlist');
+      toast.error('Please login to add movie to watchlist');
       return;
     }
     const session_id = sessionStorage.getItem('session_id');
@@ -92,10 +94,10 @@ const addMovieToWatchList = (movieId) =>{
     fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
       .then((response) => response.json())
       .then((data) => {
-        alert('Movie added to watchlist');
+        toast.success('Movie added to watchlist successfully');
       });
   } catch (error) {
-    alert('Something went wrong');
+    toast.error('Something went wrong');
   }
 }
 onMounted(getUpcomingMovie);

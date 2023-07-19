@@ -52,9 +52,9 @@
 <script setup>
 import { ref, inject } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-
+import { useToast } from 'vue-toastification';
 const router = useRouter();
-
+const toast = useToast();
 const login = inject("login");
 const username = ref("");
 const password = ref("");
@@ -62,9 +62,10 @@ const password = ref("");
 async function loginHandler() {
   try {
     await login(username.value, password.value);
+    toast.success('Login Successful');
     router.replace("/");
   } catch (error) {
-    alert(error);
+    toast.error('Login Failed');
   }
 }
 
