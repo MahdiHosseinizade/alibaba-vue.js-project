@@ -13,5 +13,9 @@ router.beforeEach((to, from, next) => {
         next('/login');
         return;
     }
+    if (to.name === 'login' && loggedIn) {
+        next('/');
+        return;
+    }
     next();
 });
