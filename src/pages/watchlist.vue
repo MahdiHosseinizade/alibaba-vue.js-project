@@ -90,50 +90,6 @@
   </script>
   
   <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,600&display=swap');
-
-@font-face {
-    font-family: RegularEnglish ;
-    src: url(../assets/fonts/Nunito-Regular.ttf);
-}
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', 'Trebuchet MS',sans-serif;
-    font-family: RegularEnglish;
-    text-decoration: none;
-    list-style:none;
-    scroll-behavior: smooth;
-}
-::selection{
-    color: #020307;
-    background-color: #fff;
-}
-html::-webkit-scrollbar{
-    width: 0.5rem;
-    background-color:var(--bg-color);
-}
-html::-webkit-scrollbar-thumb{
-    background-color: var(--main-color);
-    border-radius: 5;
-}
-
-
-:root{
-    --main-color:#F5C518;
-    --text-color:#fff;
-    --bg-color:#020307;
-}
-
-body{
-    background-color: var(--bg-color);
-}
-
-
-
-
 
 
 
@@ -152,7 +108,6 @@ body{
     
     ul.watchlist li div {
       flex-grow: 1;
-      /* margin-left: 5%; */
     }
     .time-genre{
         display: flex;
