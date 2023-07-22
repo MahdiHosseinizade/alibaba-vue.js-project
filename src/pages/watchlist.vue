@@ -1,27 +1,4 @@
 <template>
-<!-- 
-
-
-
-
-
-
-li button.watch-button:hover {
-    background-color: var(--main-color);
-    color: var(--bg-color);
-    font-weight: 700;
-}
-li button.remove-button:hover {
-    background-color: #dc2626 ;
-    color: var(--text-color);
-    font-size: 13px;
-}
-
-
-
-
-
-} -->
     <div>
       <header class="bg-yellow-400 text-white flex justify-between items-center p-2 w-full ">
         <a href="../html/index.html" class="text-3xl font-bold no-underline text-white px-2 py-2.5 bg-black rounded-xl ">
@@ -33,7 +10,7 @@ li button.remove-button:hover {
         </div>
       </header>
       <h1 class="text-white text-center mt-12 mb-8 ">My Watch List</h1>
-      <ul class="watchlist list-none p-0 m-0">
+      <ul class=" w-4/5 mx-auto list-none p-0 m-0">
         <li class="border border-solid border-yellow-400 rounded-xl flex items-center mb-5" v-for="movie in movies" :key="movie.id">
           <img :src="`${imageBaseURL}${imageSize}${movie.poster}`" alt="Movie Poster" class="rounded-xl w-48 h-60 mr-5">
           <div>
@@ -49,8 +26,8 @@ li button.remove-button:hover {
               </div>
             </div>
           </div>
-          <button class="remove-button bg-black ml-auto px-2.5 py-5 border-none text-base rounded-md cursor-pointer text-gray-700 mx-2.5 hover:bg-" @click="removeMovie(movie.id)">Remove</button>
-          <button class="watch-button bg-black  px-2.5 py-5 border-none text-base rounded-md cursor-pointer text-gray-700 mx-2.5 ml-2.5" @click="watchMovie(movie.id)">Watch</button>
+          <button class=" bg-black ml-auto px-2.5 py-3 border-none text-base rounded-md cursor-pointer  hover:bg-red-600 text-white hover:text-base" @click="removeMovie(movie.id)">Remove</button>
+          <button class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-gray-700 mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold" @click="watchMovie(movie.id)">Watch</button>
         </li>
       </ul>
     </div>
@@ -109,7 +86,6 @@ li button.remove-button:hover {
   }
   
   function watchMovie(id) {
-    // Implement watch logic here
   }
   </script>
   
@@ -160,12 +136,6 @@ body{
 
 
 
-
-
-.watchlist{
-    width: 80%;
-    margin: 0 auto;
-}
 
 @media only screen and (max-width: 780px) {
     ul.watchlist li {
