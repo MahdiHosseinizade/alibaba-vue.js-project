@@ -5,8 +5,7 @@
           <i class='bx bxs-movie text-4xl mr-2.5'></i>IMDB
         </a>
         <div @click="redirectTo('./profile.html')" class="person-icon">
-          <!-- <i class='fas fa-user-alt'></i> -->
-          <p>MahdiHosseini</p>
+            <span class="bg-yellow-100 text-black text-sm font-medium mr-2 px-2.5 py-1 rounded dark:bg-gray-400 dark:text-balck hover:cursor-pointer" >{{ user && user.username ? user.username : '' }}</span>
         </div>
       </header>
       <h1 class="text-white text-center mt-12 mb-8 ">My Watch List</h1>
@@ -26,17 +25,17 @@
               </div>
             </div>
           </div>
-          <button class=" bg-black ml-auto px-2.5 py-3 border-none text-base rounded-md cursor-pointer  hover:bg-red-600 text-white hover:text-base" @click="removeMovie(movie.id)">Remove</button>
-          <button class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-gray-700 mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold" @click="watchMovie(movie.id)">Watch</button>
+          <button class=" bg-black ml-auto px-2.5 py-3 border-none text-base rounded-md cursor-pointer  hover:bg-red-600 text-gray-500 hover:text-base" @click="removeMovie(movie.id)">Remove</button>
+          <button class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold" @click="watchMovie(movie.id)">Watch</button>
         </li>
       </ul>
     </div>
   </template>
   
   <script setup>
-  import { ref } from 'vue';
+  import { ref , inject} from 'vue';
   import { imageBaseURL, imageSize } from '../constants/imageAPI';
-
+  const user = inject('user');
   
   const movies = ref([
     {
