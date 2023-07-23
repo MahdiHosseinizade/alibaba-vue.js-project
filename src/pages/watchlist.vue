@@ -1,9 +1,9 @@
 <template>
   <div>
     <header class="bg-yellow-400 text-white flex justify-between items-center p-2 w-full ">
-      <a href="../html/index.html" class="text-3xl font-bold no-underline text-white px-2 py-2.5 bg-black rounded-xl ">
+      <RouterLink to="/" class="text-3xl font-bold no-underline text-white px-2 py-2.5 bg-black rounded-xl ">
         <i class='bx bxs-movie text-4xl mr-2.5'></i>IMDB
-      </a>
+      </RouterLink>
       <div @click="redirectTo('./profile.html')" class="person-icon">
         <span
           class="bg-yellow-100 text-black text-sm font-medium mr-2 px-2.5 py-1 rounded dark:bg-gray-400 dark:text-balck hover:cursor-pointer">{{
@@ -31,13 +31,13 @@
             </div>
             <div>
               <p class="m-0 text-sm text-gray-500 mt-2"><strong> <i class="fas fa-tags text-yellow-400 mr-2.5"></i> Genre
-                  :</strong> {{ movie.genre }}</p>
+                  :</strong> {{ movie.genres }}</p>
             </div>
           </div>
         </div>
         <button
           class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold"
-          @click="watchMovie(movie.id)">Watch</button>
+          >Watch</button>
         <button
           class=" bg-black ml-auto px-2.5 py-3 border-none text-base rounded-md cursor-pointer  hover:bg-red-600 text-white hover:text-base"
           @click="removeMovie(movie.id)">Remove</button>
@@ -48,40 +48,64 @@
   
 <script setup>
 import { ref, inject, watch, onMounted } from 'vue';
-import { imageBaseURL, imageSize } from '../constants/imageAPI';
+import { RouterLink } from 'vue-router';
+import { useToast } from 'vue-toastification';
+import { imageBaseURL, imageSize } from '@/constants/imageAPI';
+import { API_READ_ACCESS_TOKEN, BASEURL,API_KEY } from '@/constants/apiConstants';
+
+
+const movies = ref([]);
 const user = inject('user');
+const toast = useToast();
+const session_id = sessionStorage.getItem('session_id');
 
 async function getWatchListMovie() {
   const options = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YTU2YzhmYzk2N2EzMTA1NDk2OTA3MmFhY2E2MDVmNiIsInN1YiI6IjY0YTUxYjMyMWJmMjY2MDEwNTE4MDAyMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HxmHxMHAYsrdt_Q3S613yYxLtOJCHd2gYTqAfOAIY2I'
+      Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
     }
   };
-  await fetch('https://api.themoviedb.org/3/account/20109680/watchlist/movies', options)
-    .then(response => response.json())
-    .then(data => {
-      movies.value = data.results;
+  const response = await fetch(`${BASEURL}/3/account/${user.value.id}/watchlist/movies`, options)
+  const data = await response.json();
+  const watchListMovie = data.results;
+  for (const movie of watchListMovie) {
+    const genre = await fetch(`${BASEURL}/3/movie/${movie.id}?language=en-US`, options)
+    const genreData = await genre.json();
+    const gen = genreData.genres.map((genre) => genre.name);
+    movie.genres = gen.join(', ');
+  }
+  movies.value = watchListMovie;
+}
+
+
+async function removeMovie(id) {
+  console.log('remove movie  : ', id);
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
+    },
+    body: JSON.stringify({
+      media_type: 'movie',
+      media_id: id,
+      watchlist: false
     })
-  console.log(movies.value);
+  }
+  fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
+  .then(response => response.json())
+  .then(data => {
+    toast.success('Movie removed from watchlist successfully');
+    getWatchListMovie();
+  })
 }
+
+
 onMounted(getWatchListMovie)
-
-const movies = ref([]);
-
-function redirectTo(url) {
-  window.location.href = url;
-}
-
-function removeMovie(id) {
-  movies.value = movies.value.filter(movie => movie.id !== id);
-}
-
-function watchMovie(id) {
-}
 </script>
-  
+
 <style>
 @media only screen and (max-width: 780px) {
   ul.watchlist li {
@@ -102,7 +126,7 @@ function watchMovie(id) {
 
   .time-genre {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   li button {
@@ -113,7 +137,6 @@ function watchMovie(id) {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width:2px;
     height: 50px;
     margin-top: 2%;
     margin-right: 5%;
