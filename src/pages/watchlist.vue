@@ -10,12 +10,10 @@
             user && user.username ? user.username : '' }}</span>
       </div>
     </header>
-
-    <h1 v-if="!movies.length" class="text-white text-center mt-12 mb-8 ">
+    
+    <h1 v-if="!movies.length"  class="text-white text-center mt-12 mb-8 ">
       No movie in your watchlist</h1>
-    <h1 class="text-white text-center mt-12 mb-8" v-else><span
-        class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-black bg-yellow-300 rounded-full">{{
-          movies.length }}</span>
+    <h1 class="text-white text-center mt-12 mb-8" v-else><span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-black bg-yellow-300 rounded-full">{{ movies.length }}</span>
       movies is in your watchlist</h1>
     <ul class=" w-4/5 mx-auto list-none p-0 m-0 watchlist">
       <li class="border border-solid border-yellow-400 rounded-xl flex items-center mb-5" v-for="movie in movies"
@@ -42,7 +40,8 @@
           </div>
         </div>
         <button
-          class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold">Watch</button>
+          class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold"
+          >Watch</button>
         <button
           class=" bg-black ml-auto px-2.5 py-3 border-none text-base rounded-md cursor-pointer  hover:bg-red-600 text-white hover:text-base"
           @click="removeMovie(movie.id)">Remove</button>
@@ -56,7 +55,7 @@ import { ref, inject, watch, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
-import { API_READ_ACCESS_TOKEN, BASEURL, API_KEY } from '@/constants/apiConstants';
+import { API_READ_ACCESS_TOKEN, BASEURL,API_KEY } from '@/constants/apiConstants';
 
 
 const movies = ref([]);
@@ -100,11 +99,11 @@ async function removeMovie(id) {
     })
   }
   fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
-    .then(response => response.json())
-    .then(data => {
-      toast.success('Movie removed from watchlist successfully');
-      getWatchListMovie();
-    })
+  .then(response => response.json())
+  .then(data => {
+    toast.success('Movie removed from watchlist successfully');
+    getWatchListMovie();
+  })
 }
 
 
@@ -138,8 +137,7 @@ onMounted(getWatchListMovie)
     width: 100%;
     margin: 10px 0;
   }
-
-  .vote_avarage {
+  .vote_avarage{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -147,10 +145,9 @@ onMounted(getWatchListMovie)
     margin-top: 2%;
     margin-right: 5%;
   }
-
-  .logoImg {
+  .logoImg{
     width: 25px !important;
-    height: 25px !important;
+    height: 25px!important;
   }
 }
 </style>
