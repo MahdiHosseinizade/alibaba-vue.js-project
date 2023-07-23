@@ -18,7 +18,7 @@
               <div
                 class="mb-6 flex rounded bg-black px-1 pb-1.5 pt-2 text-yellow-400 font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#F5C518] transition duration-150 ease-in-out hover:bg-yellow-600 text-yellow-100  focus:bg-gray-200 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-gray-950 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
                 <img src="../assets/images/logo.png" alt="IMDb Logo" class="w-5 h-5 mr-2">
-                {{ movieInfo }}
+                {{ series.rate }}
                 <span
                   class="ml-2 inline-block whitespace-nowrap rounded-[0.27rem] bg-danger-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-danger-700"></span>
               </div>
@@ -70,7 +70,7 @@ const getPopularSeries = async () => {
   const data = await response.json();
   const movies = data.results;
   for (const movie of movies) {
-    movieInfo.value = movie.vote_average;
+    movie.rate = movie.vote_average;
   }
   seriesList.value = movies;
   isLoading.value = false;
