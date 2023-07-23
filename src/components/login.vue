@@ -1,74 +1,109 @@
 <template>
-    <title>Login </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
-    <header>
-      <a href="../html/index.html" class="logo">
-          <i class='bx bxs-movie'></i>IMDB 
-      </a>
+  <div>
+    <header class="header-login">
+      <RouterLink to="/" class="logo">
+        <i class='bx bxs-movie'></i>IMDB
+      </RouterLink>
     </header>
-
-   <main class="loginHeader">
-    <header class="header_form">
-      <nav class="navBar">
-        <ul>
-          <li><a href="./login.html" class="active">Sign In</a></li>
-          <li><a href="./signup.html">Create Account</a></li>
-        </ul>
-      </nav>
-    </header>
-    <section class="loginForm">
-      <!-- <h1>Sign in to your account</h1> -->
-      <form>
-        <div>
-          <label for="username">Username or Email Address</label>
-          <input type="text" name="username" id="username" placeholder="Enter your username or email address">
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Enter your password">
-        </div>
-        <div class="rememberMe">
-          <input type="checkbox" name="rememberMe" id="rememberMe">
-          <label for="rememberMe">Remember Me</label>
-        </div>
-        <button class="btn-signIn" type="submit">Log In</button>
-        <p><a href="./signup.html">Don't have an account ?</a></p>
-      </form>
-    </section>
-   </main>
+    <main class="loginHeader">
+      <header class="header_form">
+        <nav class="navBar">
+          <ul>
+            <li>
+              <RouterLink to="login" class="active">
+                SignIn
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink to="register">
+                Create Account
+              </RouterLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <section class="loginForm">
+        <form  @submit.prevent="loginHandler">
+          <div>
+            <label for="username">Username or Email Address</label>
+            <input v-model="username" type="text" name="username" id="username"
+              placeholder="Enter your username "
+              class="w-full h-10 px-4 py-2 rounded-md border border-yellow-700">
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input v-model="password" type="password" name="password" id="password" placeholder="Enter your password"
+              class="w-full h-10 px-4 py-2 text-black rounded-md border border-yellow-700">
+          </div>
+          <div class="rememberMe">
+            <input type="checkbox" name="rememberMe" id="rememberMe">
+            <label for="rememberMe">Remember Me</label>
+          </div>
+          <button class="btn-signIn" type="submit">Log In</button>
+          <p>
+            <RouterLink to="register">Don't have an account?</RouterLink>
+          </p>
+        </form>
+      </section>
+    </main>
+  </div>
 </template>
+
 <script setup>
+import { ref, inject } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+import { useToast } from 'vue-toastification';
+const router = useRouter();
+const toast = useToast();
+const login = inject("login");
+const username = ref("");
+const password = ref("");
+
+async function loginHandler() {
+  try {
+    await login(username.value, password.value);
+    toast.success('Login Successful');
+    router.replace("/");
+  } catch (error) {
+    toast.error('Login Failed');
+  }
+}
+
+
 
 </script>
 
-<style>
-    ::selection{
+
+<style scoped>
+::selection {
   color: #020307;
   background-color: #fff;
 }
-html::-webkit-scrollbar{
+
+html::-webkit-scrollbar {
   width: 0.5rem;
-  background-color:var(--bg-color);
+  background-color: var(--bg-color);
 }
-html::-webkit-scrollbar-thumb{
+
+html::-webkit-scrollbar-thumb {
   background-color: var(--main-color);
   border-radius: 5;
 }
 
 
 :root {
-  
-  --main-color:#F5C518;
-  --text-color:#fff;
-  --bg-color:#000000;
+
+  --main-color: #F5C518;
+  --text-color: #fff;
+  --bg-color: #000000;
 }
 
 @font-face {
-  font-family: RegularEnglish ;
+  font-family: RegularEnglish;
   src: url(../assets/fonts/Nunito-Regular.ttf);
 }
-*{
+
+* {
   font-family: RegularEnglish;
   margin: 0;
   padding: 0;
@@ -77,35 +112,45 @@ html::-webkit-scrollbar-thumb{
 body {
   background-color: var(--bg-color);
 }
-::selection{
+
+::selection {
   color: #020307;
   background-color: #fff;
 }
 
-header {
+.header-login {
   background-color: var(--main-color);
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  /* border-radius: 10px; */
-  /* width: 100%; */
 }
-.header_form{
+
+.header_form {
   width: 100%;
   border-radius: 10px;
+  background-color: var(--main-color);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
-a{
+
+a {
   text-decoration: none;
 }
-ul{
+
+ul {
   list-style: none;
 }
-.active{
+
+.active {
   border-bottom: 3px solid var(--bg-color);
   transition: all 0.3s ease-in-out !important;
 }
+
 .logo {
   font-size: 2rem;
   font-weight: bold;
@@ -131,24 +176,27 @@ ul{
   margin-top: 50px;
 }
 
-.navBar{
+.navBar {
   width: 100%;
 }
-.navBar ul{
+
+.navBar ul {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
-.navBar ul li{
+
+.navBar ul li {
   width: 100%;
   text-align: center;
 }
 
-.navBar a{
+.navBar a {
   color: var(--bg-color);
   text-decoration: none;
 }
-.navBar a:active{
+
+.navBar a:active {
   color: red;
   border-bottom: #b0afab;
 }
@@ -168,15 +216,6 @@ ul{
   margin-bottom: 7px;
   text-align: center;
   margin-top: 20px;
-}
-
-.loginForm input[type="text"],
-.loginForm input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
 }
 
 .rememberMe {
@@ -218,24 +257,19 @@ button[type="submit"]:hover {
 }
 
 @media screen and (max-width: 557px) {
-  /* header styles */
+
   header {
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
   }
 
-  .header_form{
-    width: 96%;
-  }
+
 
   .logo {
     margin-bottom: 20px;
   }
-  .loginForm input[type="text"],
-  .loginForm input[type="password"]{
-    width: 96%;
-  }
+
 
   .loginHeader {
     width: 90%;
@@ -248,17 +282,15 @@ button[type="submit"]:hover {
     margin-top: 10px;
   }
 
-  .navBar ul{
+  .navBar ul {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 10px;
   }
 
-  .navBar ul li{
+  .navBar ul li {
     margin-left: 0;
   }
 
-}
-
-</style>
+}</style>

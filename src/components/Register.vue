@@ -1,49 +1,41 @@
 <template>
-    <title>Login </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
-    <header>
+  <div>
+    <header class="header-register">
       <RouterLink to="/" class="logo">
         <i class='bx bxs-movie'></i>IMDB
       </RouterLink>
     </header>
-    <main class="loginHeader">
-    <header class=" header_form">
-      <nav class="navBar">
-        <ul>
-          <li><a href="./login.vue" >Sign In</a></li>
-          <li>
-            <RouterLink to="register" class="active">
-              Create Account
-            </RouterLink>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <section class="loginForm">
-      <form>
-        <div>
-          <label for="username">Username or Email Address</label>
-          <input type="text" name="username" id="username" placeholder="Enter your username or email address">
+    <main class="registerHeader">
+      <header class="header_form">
+        <nav class="navBar">
+          <ul>
+            <li>
+              <RouterLink to="login">
+                SignIn
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink to="register" class="active">
+                Create Account
+              </RouterLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <section class="registerForm">
+        <div style="text-align: center;">
+          <h2>Register on The Movie DB</h2>
+          <p>To register on the site you should create an account on the Movie DB</p>
+          <a href="https://www.themoviedb.org/signup" class="registerButton">Register</a>
         </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Enter your password">
-        </div>
-        <div>
-            <label for="password">Password Confrimation</label>
-            <input type="password" name="password" id="password" placeholder="Enter your password">
-          </div>
-        <div class="rememberMe">
-          <input type="checkbox" name="rememberMe" id="rememberMe">
-          <label for="rememberMe">Remember Me</label>
-        </div>
-        <button type="submit">Sign In</button>
-        <p><a href="./login.html">Already have an account ?</a></p>
-      </form>
-    </section>
-   </main>
+        <p style="text-align: center; margin-top: 40px;">
+            <RouterLink to="login">Already have an account ?</RouterLink>
+        </p>
+      </section>
+    </main>
+  </div>
 </template>
+
 
 <script setup>
 
@@ -89,23 +81,25 @@ body {
   background-color: #fff;
 }
 
-header {
+.header-register {
   background-color: var(--main-color);
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  /* border-radius: 10px; */
-  /* width: 100%; */
 }
 .header_form{
   width: 100%;
   border-radius: 10px;
+  background-color: var(--main-color);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
-a{
-  text-decoration: none;
-}
+
 ul{
   list-style: none;
 }
@@ -128,7 +122,7 @@ ul{
   margin-right: 10px;
 }
 
-.loginHeader {
+.registerHeader {
   width: 500px;
   background-color: var(--bg-color);
   padding: 30px;
@@ -137,7 +131,9 @@ ul{
   margin: 0 auto;
   margin-top: 50px;
 }
-
+.registerButton{
+  margin-top: 20px;
+}
 .navBar{
   width: 100%;
 }
@@ -156,76 +152,24 @@ ul{
   text-decoration: none;
 }
 .navBar a:active{
-  color: red;
+  color: rgb(255, 230, 0);
   border-bottom: #b0afab;
 }
 
-.loginForm h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.loginForm form div {
-  margin-bottom: 30px;
-}
-
-.loginForm label {
-  display: block;
-  font-size: 1.2rem;
-  margin-bottom: 7px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.loginForm input[type="text"],
-.loginForm input[type="password"] {
+.registerForm {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  margin-top: 50px;
 }
 
-.rememberMe {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+.registerForm p {
+  margin-top: 25px;
 }
 
-.rememberMe label {
-  margin-left: 10px;
-  font-size: 1.1rem;
-}
-
-button[type="submit"] {
-  background-color: var(--bg-color);
-  border: 1px solid var(--main-color);
-  color: var(--main-color);
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: block;
-  margin: 0 auto;
-}
-
-
-button[type="submit"]:hover {
-  background-color: var(--main-color);
-  color: var(--bg-color);
-}
-
-.loginForm p {
-  margin-top: 20px;
-}
-
-.loginForm a {
+.registerForm a {
   color: var(--main-color);
 }
 
 @media screen and (max-width: 557px) {
-  /* header styles */
   header {
     flex-direction: column;
     align-items: flex-start;
@@ -239,22 +183,13 @@ button[type="submit"]:hover {
   .logo {
     margin-bottom: 20px;
   }
-  .loginForm input[type="text"],
-  .loginForm input[type="password"]{
-    width: 96%;
-  }
 
-  .loginHeader {
+
+  .registerHeader {
     width: 90%;
     padding: 20px;
     margin-top: 30px;
   }
-
-  .loginForm label {
-    text-align: left;
-    margin-top: 10px;
-  }
-
   .navBar ul{
     display: flex;
     flex-direction: row;
