@@ -17,18 +17,20 @@
         <div class="flex w-48 justify-between icons">
           <template v-if="user && user.id">
             <div v-for="item in iconItems" :key="item.text" :data-text="item.text" class="icon">
-              <i :class="item.iconClass"></i>
+              <i :class="item.iconClass" @click="addMovieToWatchList"></i>
             </div>
           </template>
           <template v-else>
             <div v-for="(item, index) in iconItems" :key="item.text" :data-text="loginText[index]" class="icon">
-              <RouterLink to="/login">
+              <RouterLink to="/login" v-if="item.text === 'Add this movie to your watchlist'">
                 <i :class="item.iconClass"></i>
               </RouterLink>
+              <div v-else>
+                <i :class="item.iconClass"></i>
+              </div>
             </div>
           </template>
         </div>
-
         <h3 class="font-bold">Overview</h3>
         <p>{{ movieDetail.overview }}</p>
       </div>
@@ -60,21 +62,26 @@
         </section>
       </div>
       <div class="side">
-        <h2>More Information</h2>
-        <section class="social_links">
-          <div class="social">
+        <h2 class="font-bold text-black text-center my-5">More Information</h2>
+        <section class=" flex justify-around">
+          <div
+            class="social w-10 h-10 bg-gray-300 rounded-full flex justify-center items-center cursor-pointer text-black">
             <i class="fab fa-facebook-f"></i>
           </div>
-          <div class="social">
+          <div
+            class="social w-10 h-10 bg-gray-300 rounded-full flex justify-center items-center cursor-pointer text-black">
             <i class="fab fa-twitter"></i>
           </div>
-          <div class="social">
+          <div
+            class="social w-10 h-10 bg-gray-300 rounded-full flex justify-center items-center cursor-pointer text-black">
             <i class="fab fa-instagram"></i>
           </div>
-          <div class="social">
+          <div
+            class="social w-10 h-10 bg-gray-300 rounded-full flex justify-center items-center cursor-pointer text-black">
             <i class="fab fa-youtube"></i>
           </div>
         </section>
+
 
         <article class="information_side">
           <div class="grid">
@@ -118,6 +125,7 @@ import { useRoute } from 'vue-router';
 import { API_READ_ACCESS_TOKEN, BASEURL } from '@/constants/apiConstants';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import defaultImage from '@/assets/images/defaultImage.png'
+import { useToast } from 'vue-toastification';
 
 const route = useRoute();
 const movieId = ref(route.params.id);
@@ -127,6 +135,9 @@ const cast = ref([]);
 const crew = ref([]);
 const comments = ref([]);
 const imageComment = ref([])
+
+
+const toast = useToast();
 
 const iconItems = [
   { text: "Add this movie to your watchlist", iconClass: "fas fa-bookmark" },
@@ -138,6 +149,27 @@ const loginText = computed(() => {
   return iconItems.map(item => "Login to " + item.text);
 });
 
+const addMovieToWatchList = () => {
+  const session_id = sessionStorage.getItem('session_id');
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
+    },
+    body: JSON.stringify({
+      media_type: 'movie',
+      media_id: movieId.value,
+      watchlist: true
+    })
+  };
+  fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
+    .then((response) => response.json())
+    .then((data) => {
+      toast.success('Movie added to watchlist successfully');
+    });
+
+}
 
 const options = {
   method: 'GET',
@@ -167,7 +199,7 @@ const getComments = async () => {
     const avatarPath = comment.author_details.avatar_path;
     if (avatarPath) {
       if (avatarPath.includes('http')) {
-        return avatarPath.substring(1); 
+        return avatarPath.substring(1);
       }
       return `${imageBaseURL}${imageSize}/${avatarPath.substring(1)}`;
     }
@@ -236,7 +268,7 @@ header {
   align-items: center;
   padding: 8px;
   width: 100%;
-  z-index: 10000;
+  z-index: 9999;
 }
 
 .logo {
@@ -247,6 +279,7 @@ header {
   padding: 8px 10px;
   border-radius: 10px;
   background-color: var(--bg-color);
+
 }
 
 .logo i {
@@ -423,9 +456,6 @@ body {
 
 .side h2 {
   margin: 20px 0;
-  text-align: center;
-  font-weight: 500;
-  color: var(--bg-color);
 }
 
 .side {
@@ -436,22 +466,7 @@ body {
 
 }
 
-.social_links {
-  display: flex;
-  justify-content: space-around;
-}
 
-.social_links .social {
-  width: 40px;
-  height: 40px;
-  background-color: #dadada;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: var(--bg-color);
-}
 
 .information_side .grid {
   color: var(--bg-color);
