@@ -2,7 +2,7 @@
     <Header/>
     <section class="home" id="home">
         <div class="container">
-            <img src="../assets/images/the-last-of-us-hbo-series-character-guide_tyck.jpg" alt="BackGround Image" id="backGroundImg">
+            <img src="@/assets/images/the-last-of-us-hbo-series-character-guide_tyck.jpg" alt="BackGround Image" id="backGroundImg">
             <div class="home-text">
                 <span>
                     Movie Website
