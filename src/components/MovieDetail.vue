@@ -1,9 +1,3 @@
-<!-- <div v-for="(actor, index) in cast" :key="index" class="scroll">
-  <section>
-    <img :src="`${imageBaseURL}${imageSize}${actor.profile_path}`" />
-    <h4>{{ actor.name }}</h4>
-  </section>
-</div> -->
 <template>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
@@ -21,16 +15,20 @@
         <h1>{{ movieDetail.title }}</h1>
         <h4>{{ movieDetail.release_date }} , IMDB : {{ movieDetail.vote_average }}</h4>
         <div class="icons">
-          <div data-text="Login to add this movie to your watchlist" class="icon">
-            <i class="fas fa-save"></i>
-          </div>
-          <div data-text="Login to add this movie to your favorite list" class="icon">
-            <i class="fas fa-heart"></i>
-          </div>
-          <div data-text="Login to rate this movie" class="icon">
-            <i class="fas fa-star"></i>
-          </div>
+          <template v-if="user && user.id">
+            <div v-for="item in iconItems" :key="item.text" :data-text="item.text" class="icon">
+              <i :class="item.iconClass"></i>
+            </div>
+          </template>
+          <template v-else>
+            <div v-for="(item,index) in iconItems" :key="item.text" :data-text="loginText[index]" class="icon">
+              <RouterLink to="/login">
+                <i :class="item.iconClass"></i>
+              </RouterLink>
+            </div>
+          </template>
         </div>
+
         <h3>Overview</h3>
         <p>{{ movieDetail.overview }}</p>
       </div>
@@ -111,24 +109,38 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, inject, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { ACCESS_TOKEN, BASEURL } from '../constants/apiConstants';
-import { imageBaseURL, imageSize } from '../constants/imageAPI';
-import defaultImage from '../assets/images/defaultImage.png'
+import { API_READ_ACCESS_TOKEN, BASEURL } from '@/constants/apiConstants';
+import { imageBaseURL, imageSize } from '@/constants/imageAPI';
+import defaultImage from '@/assets/images/defaultImage.png'
 
 const route = useRoute();
 const movieId = ref(route.params.id);
 const movieDetail = ref([]);
+const user = inject('user');
+console.log(user.value);
 const cast = ref([]);
 const crew = ref([]);
 const comments = ref([]);
 const imageComment = ref([])
+
+const iconItems = [
+  { text: "Add this movie to your watchlist", iconClass: "fas fa-bookmark" },
+  { text: "Add this movie to your favorite list", iconClass: "fas fa-heart" },
+  { text: "Rate this movie", iconClass: "fas fa-star" }
+];
+
+const loginText = computed(() => {
+  return iconItems.map(item => "Login to " + item.text);
+});
+
+
 const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: `Bearer ${ACCESS_TOKEN} `
+    Authorization: `Bearer ${API_READ_ACCESS_TOKEN} `
   }
 };
 
@@ -153,7 +165,7 @@ const getComments = async () => {
     if (avatarPath && avatarPath !== 'null') {
       return avatarPath.substring(1);
     }
-    return defaultImage ;
+    return defaultImage;
   });
 };
 
@@ -351,17 +363,19 @@ body {
 }
 
 
-.actors{
+.actors {
   padding: 30px;
   align-self: center;
   color: var(--text-color-color);
 }
+
 .reviews {
   padding: 30px;
   align-self: center;
   color: var(--bg-color);
 }
-.reviews h2{
+
+.reviews h2 {
   color: var(--text-color);
 }
 
