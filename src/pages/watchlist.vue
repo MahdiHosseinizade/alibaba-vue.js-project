@@ -10,7 +10,11 @@
             user && user.username ? user.username : '' }}</span>
       </div>
     </header>
-    <h1 class="text-white text-center mt-12 mb-8 ">My Watch List</h1>
+    
+    <h1 v-if="!movies.length"  class="text-white text-center mt-12 mb-8 ">
+      No movie in your watchlist</h1>
+    <h1 class="text-white text-center mt-12 mb-8" v-else><span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-black bg-yellow-300 rounded-full">{{ movies.length }}</span>
+      movies is in your watchlist</h1>
     <ul class=" w-4/5 mx-auto list-none p-0 m-0 watchlist">
       <li class="border border-solid border-yellow-400 rounded-xl flex items-center mb-5" v-for="movie in movies"
         :key="movie.id">
