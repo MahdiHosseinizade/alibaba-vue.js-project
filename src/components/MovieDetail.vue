@@ -2,11 +2,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <link rel="icon" type="image/x-icon" href="../assets/img/imdb.png">
   <title>InternalPage</title>
-  <header>
-    <RouterLink to="/" class="logo">
-      <i class='bx bxs-movie'></i>IMDB
-    </RouterLink>
-  </header>
+  <header class="bg-yellow-400 z-50 text-white flex justify-between items-center p-2 w-full ">
+      <RouterLink to="/" class="text-3xl font-bold no-underline text-white px-2 py-2.5 bg-black rounded-xl ">
+        <i class='bx bxs-movie text-4xl mr-2.5'></i>IMDB
+      </RouterLink>
+      <div @click="redirectTo('./profile.html')" class="person-icon">
+        <span
+          class="bg-yellow-100 text-black text-sm font-medium mr-2 px-2.5 py-1 rounded dark:bg-gray-400 dark:text-balck hover:cursor-pointer">{{
+            user && user.username ? user.username : '' }}</span>
+      </div>
+    </header>
   <main>
     <section :style="{ backgroundImage: `url(${imageBaseURL}${imageSize}${movieDetail.poster_path})` }"
       class="information">
@@ -220,84 +225,6 @@ onMounted(
 
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,600&display=swap');
-
-@font-face {
-  font-family: RegularEnglish;
-  src: url(../assets/fonts/Nunito-Regular.ttf);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', 'Trebuchet MS', sans-serif;
-  font-family: RegularEnglish;
-  text-decoration: none;
-  list-style: none;
-  scroll-behavior: smooth;
-}
-
-::selection {
-  color: #020307;
-  background-color: #fff;
-}
-
-html::-webkit-scrollbar {
-  width: 0.5rem;
-  background-color: var(--bg-color);
-}
-
-html::-webkit-scrollbar-thumb {
-  background-color: var(--main-color);
-  border-radius: 5;
-}
-
-
-:root {
-  --main-color: #F5C518;
-  --text-color: #fff;
-  --bg-color: #020307;
-}
-
-header {
-  background-color: var(--main-color);
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px;
-  width: 100%;
-  z-index: 9999;
-}
-
-.logo {
-  font-size: 2rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: var(--text-color);
-  padding: 8px 10px;
-  border-radius: 10px;
-  background-color: var(--bg-color);
-
-}
-
-.logo i {
-  font-size: 2.5rem;
-  margin-right: 10px;
-}
-
-html,
-body {
-  margin: 0;
-  box-sizing: border-box;
-  padding: 0;
-}
-
-::selection {
-  color: #020307;
-  background-color: #fff;
-}
 
 .information {
   background-color: var(--bg-color);
@@ -312,6 +239,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  z-index:30
 }
 
 .information::before {
@@ -578,9 +506,7 @@ bdi {
 
 @media only screen and (max-width:800px) {
 
-  /* .side{
-        display: none;
-    } */
+
   .category {
     width: 100%;
   }
