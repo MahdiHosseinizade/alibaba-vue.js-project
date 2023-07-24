@@ -11,17 +11,17 @@
     <section :style="{ backgroundImage: `url(${imageBaseURL}${imageSize}${movieDetail.poster_path})` }"
       class="information">
       <img :src="`${imageBaseURL}${imageSize}${movieDetail.poster_path}`" :alt="movieDetail.title">
-      <div class="title">
-        <h1>{{ movieDetail.title }}</h1>
+      <div class="title text-black">
+        <h1 class="font-bold">{{ movieDetail.title }}</h1>
         <h4>{{ movieDetail.release_date }} , IMDB : {{ movieDetail.vote_average }}</h4>
-        <div class="icons">
+        <div class="flex w-48 justify-between icons">
           <template v-if="user && user.id">
             <div v-for="item in iconItems" :key="item.text" :data-text="item.text" class="icon">
               <i :class="item.iconClass"></i>
             </div>
           </template>
           <template v-else>
-            <div v-for="(item,index) in iconItems" :key="item.text" :data-text="loginText[index]" class="icon">
+            <div v-for="(item, index) in iconItems" :key="item.text" :data-text="loginText[index]" class="icon">
               <RouterLink to="/login">
                 <i :class="item.iconClass"></i>
               </RouterLink>
@@ -29,7 +29,7 @@
           </template>
         </div>
 
-        <h3>Overview</h3>
+        <h3 class="font-bold">Overview</h3>
         <p>{{ movieDetail.overview }}</p>
       </div>
     </section>
@@ -96,12 +96,16 @@
             <div>{{ movieDetail.revenue }}</div>
           </div>
         </article>
-        <section class="keywords_side">
-          <h4>Keywords</h4>
-          <ul v-for="(genre, index) in movieDetail.genres" :key="index">
-            <li>{{ genre.name }}</li>
+        <section class="keywords_side mt-8 ml-2 mb-8">
+          <h4 class="text-black text-lg font-normal mb-4">Keywords</h4>
+          <ul class="flex flex-wrap pb-4">
+            <li v-for="(genre, index) in movieDetail.genres" :key="index"
+              class="mr-2 mb-4 leading-6 text-sm bg-gray-200 border border-gray-200 text-gray-700 px-2 py-1 rounded">
+              {{ genre.name }}
+            </li>
           </ul>
         </section>
+
       </div>
     </section>
 
@@ -119,7 +123,6 @@ const route = useRoute();
 const movieId = ref(route.params.id);
 const movieDetail = ref([]);
 const user = inject('user');
-console.log(user.value);
 const cast = ref([]);
 const crew = ref([]);
 const comments = ref([]);
@@ -162,8 +165,11 @@ const getComments = async () => {
   comments.value = data.results;
   imageComment.value = comments.value.map(comment => {
     const avatarPath = comment.author_details.avatar_path;
-    if (avatarPath && avatarPath !== 'null') {
-      return avatarPath.substring(1);
+    if (avatarPath) {
+      if (avatarPath.includes('http')) {
+        return avatarPath.substring(1); 
+      }
+      return `${imageBaseURL}${imageSize}/${avatarPath.substring(1)}`;
     }
     return defaultImage;
   });
@@ -179,16 +185,6 @@ onMounted(
 )
 
 </script>
-
-
-
-
-
-
-
-
-
-
 
 
 <style scoped>
@@ -279,7 +275,6 @@ body {
   background-position-x: center;
   background-size: cover;
   background-repeat: no-repeat;
-  /* background-image: url({movieDetail.poster_path}); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,11 +319,6 @@ body {
   margin: 25px 0px;
 }
 
-.icons {
-  display: flex;
-  width: 200px;
-  justify-content: space-between;
-}
 
 .icon {
   width: 46px;
@@ -401,16 +391,12 @@ body {
 }
 
 .scroll img {
-  /* width: 100%; */
   width: 225px;
   position: relative;
-  /* min-width:140px;
-    min-height: 210px; */
   border-radius: 10px;
   background-color: rgb(169, 166, 151);
   margin: 10px 20px 0 0;
   height: 300px;
-
 }
 
 .scroll h4 {
