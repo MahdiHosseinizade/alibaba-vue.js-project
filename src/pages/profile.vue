@@ -56,6 +56,12 @@
               class="mr-1">Release Year : </strong> {{ movie.release_date }}</p>
           <p class="m-0 text-sm text-gray-500 mt-4"><strong><i class="fas fa-info-circle text-yellow-400 mr-2.5"></i>
               Descreption :</strong> {{ movie.overview }}</p>
+            <ul class="flex gap-12 mt-5">
+              <li><i class="fas fa-star p-2 rounded-full border border-yellow-300 mr-2 cursor-pointer hover:border-gray-700 hover:text-yellow-300 "></i>Your rating</li>
+              <li><i class="fas fa-heart p-2 rounded-full border border-red-400 mr-2 cursor-pointer hover:border-gray-700 hover:text-red-400"></i>Favourite</li>
+              <li><i class="fas fa-list p-2 rounded-full border border-gray-400 mr-2 cursor-pointer hover:border-gray-700 hover:text-gray-400"></i>Add to list</li>
+              <li><i class="fas fa-trash p-2 rounded-full border border-orange-500 mr-2 cursor-pointer hover:border-gray-700 hover:text-orange-500"></i>Remove</li>
+            </ul>
         </div>
         <button
           class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold"
