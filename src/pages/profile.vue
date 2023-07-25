@@ -3,6 +3,9 @@
     <RouterLink class="text-3xl font-bold no-underline text-white px-2 py-2.5 rounded-lg bg-black" to="/">
       <i class="text-l mr-2.5 bx bxs-movie"></i>IMDB
     </RouterLink>
+        <span
+          @click="Logout"
+          class="bg-yellow-100 text-black text-sm font-medium mr-2 p-2 rounded dark:bg-gray-100 dark:text-balck hover:cursor-pointer">Log Out</span>
   </header>
   <section class="w-full bg-yellow-700 h-64 flex items-center">
     <div class="w-40 h-40 bg-yellow-500 text-white text-xl rounded-full mx-6 flex items-center justify-center">
@@ -84,13 +87,15 @@
 
 <script setup>
 import { inject, ref, onMounted, watch } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink,useRouter } from 'vue-router';
 import { fetchApi } from '@/utils/fetchAPI';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import { API_READ_ACCESS_TOKEN, BASEURL, API_KEY } from '@/constants/apiConstants';
 import { useToast } from 'vue-toastification';
 
 const user = inject('user');
+const logout = inject('logout');
+const router = useRouter();
 const session_id = sessionStorage.getItem('session_id');
 const movieScore = ref(5)
 const tvScore = ref(92);
@@ -122,6 +127,12 @@ function getWatchListMovie() {
     .catch((err) => {
       console.log(err);
     });
+}
+
+async function Logout(){
+  await logout();
+  router.replace("/");
+  toast.success('Logout successfully');
 }
 
 async function removeMovie(id) {

@@ -51,6 +51,7 @@ export default function useAuth(app) {
 		}
 	}
 
+	
 	async function createSession(requestToken) {
 		const options = {
 			method: "POST",
@@ -61,7 +62,7 @@ export default function useAuth(app) {
 			},
 			body: JSON.stringify({ request_token: requestToken }),
 		};
-
+		
 		const res = await fetch(`${BASEURL}/3/${CREATE_SESSION_URL}`, options);
 		const data = await res.json();
 		if (!data.success) {
@@ -69,7 +70,7 @@ export default function useAuth(app) {
 		}
 		sessionStorage.setItem("session_id", data.session_id);
 	}
-
+	
 	async function getAccountData() {
 		const sessionId = sessionStorage.getItem("session_id");
 		if (!sessionId) {
@@ -93,6 +94,12 @@ export default function useAuth(app) {
 		return data;
 	}
 
+	function logout() {
+		localStorage.clear();
+		// localStorage.removeItem("user-id");
+		sessionStorage.removeItem("session_id");
+		sessionStorage.removeItem("user_id");
+	}
 	async function login(username, password) {
 		const requestToken = await createRequestToken();
 		await validateWithLogin(requestToken, username, password);
@@ -102,4 +109,5 @@ export default function useAuth(app) {
 	}
     app.provide('user', user);
     app.provide('login', login);
+	app.provide('logout', logout);
 }
