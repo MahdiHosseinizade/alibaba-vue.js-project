@@ -9,13 +9,14 @@ export const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const loggedIn = localStorage.getItem('user-id');
-    if (to.matched.some(record => record.meta.requiresAuth) ) {
-        next('/login');
-        return;
+    if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+      next('/login');
+      return;
     }
     if (to.name === 'login' && loggedIn) {
-        next('/');
-        return;
+      next('/');
+      return;
     }
     next();
-});
+  });
+  
