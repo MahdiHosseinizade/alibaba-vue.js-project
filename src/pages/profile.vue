@@ -37,6 +37,35 @@
       </article>
     </section>
   </section>
+  <section class="mt-24" >
+    <article class=" mb-5 flex flex-row  ">
+      <h2 class=" ml-40  font-bold text-2xl">Upcoming From Watchlist </h2>
+      <RouterLink to="watchlist">
+        <h3 class=" absolute right-40">Go to Watchlist</h3>
+      </RouterLink>
+    </article>
+    <ul class=" w-4/5 mx-auto list-none p-0 m-0 watchlist">
+      <li class="border border-solid border-yellow-400 rounded-xl flex items-center mb-5" v-for="movie in movies"
+        :key="movie.id">
+        <img :src="`${imageBaseURL}${imageSize}${movie.poster_path}`" :alt="movie.title"
+          class="rounded-xl w-48 h-60 mr-5">
+        <div>
+          <h2 class="m-0 text-lg text-white"><strong> <i class="fas fa-film text-yellow-400 mr-2.5"></i> Name : </strong>
+            {{ movie.title }}</h2>
+          <p class="m-0 text-sm text-gray-500 mt-4"><i class="far fa-calendar-alt text-yellow-400 mr-2.5"> </i><strong
+              class="mr-1">Release Year : </strong> {{ movie.release_date }}</p>
+          <p class="m-0 text-sm text-gray-500 mt-4"><strong><i class="fas fa-info-circle text-yellow-400 mr-2.5"></i>
+              Descreption :</strong> {{ movie.overview }}</p>
+        </div>
+        <button
+          class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold"
+          >Watch</button>
+        <button
+          class=" bg-black ml-auto px-2.5 py-3 border-none text-base rounded-md cursor-pointer  hover:bg-red-600 text-white hover:text-base"
+          @click="removeMovie(movie.id)">Remove</button>
+      </li>
+    </ul>
+  </section>
 </template>
 
 <script setup>
@@ -50,7 +79,7 @@ const user = inject('user');
 const movieScore = ref(5)
 const tvScore = ref(92);
 
-const userInfo = ref([]);
+const movies = ref([]);
 
 function setProgress(percent, circle) {
   const radius = circle.r.baseVal.value;
@@ -67,6 +96,14 @@ onMounted(() => {
   setProgress(movieScore.value, movieCircle);
   setProgress(tvScore.value, tvCircle);
 });
+
+fetchApi(`${BASEURL}/3/account/${user.value.id}/watchlist/movies`)
+  .then((res) => {
+    movies.value = res.results;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 </script>
 
