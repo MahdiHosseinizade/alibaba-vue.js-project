@@ -108,6 +108,11 @@ async function removeMovie(id) {
 
 
 onMounted(getWatchListMovie)
+watch(movies,(newVal,oldVal)=>{
+  if (newVal.length < oldVal.length) {
+    getWatchListMovie();
+  }
+})
 </script>
 
 <style>

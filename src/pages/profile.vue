@@ -21,7 +21,7 @@
               <circle class="progress-ring__circle" stroke="white" stroke-width="2" fill="transparent" r="18" cx="20"
                 cy="20" />
             </svg>
-            <span class="text-black text-xs font-semibold" >{{ movieScore }}%</span>
+            <span class="text-black text-xs font-semibold">{{ movieScore }}%</span>
           </div>
         </div>
         <div class="mr-6 mt-3  flex flex-row-reverse text-black">
@@ -37,13 +37,19 @@
       </article>
     </section>
   </section>
-  <section class="mt-24" >
-    <article class=" mb-5 flex flex-row  ">
+  <section class="mt-24">
+    <div v-if="movies.length">
+      <article class=" mb-5 flex flex-row  ">
       <h2 class=" ml-40  font-bold text-2xl">Upcoming From Watchlist </h2>
       <RouterLink to="watchlist">
-        <h3 class=" absolute right-40">Go to Watchlist</h3>
+        <h3 class=" border border-yellow-400 rounded px-5 py-2 absolute right-40">Go to Watchlist</h3>
       </RouterLink>
     </article>
+    </div>
+    <div v-else>
+      <h2 class="text-white text-center mt-12 mb-8 ">
+        No movie in your watchlist</h2>
+    </div>
     <ul class=" w-4/5 mx-auto list-none p-0 m-0 watchlist">
       <li class="border border-solid border-yellow-400 rounded-xl flex items-center mb-5" v-for="movie in movies"
         :key="movie.id">
@@ -56,34 +62,39 @@
               class="mr-1">Release Year : </strong> {{ movie.release_date }}</p>
           <p class="m-0 text-sm text-gray-500 mt-4"><strong><i class="fas fa-info-circle text-yellow-400 mr-2.5"></i>
               Descreption :</strong> {{ movie.overview }}</p>
-            <ul class="flex gap-12 mt-5">
-              <li><i class="fas fa-star p-2 rounded-full border border-yellow-300 mr-2 cursor-pointer hover:border-gray-700 hover:text-yellow-300 "></i>Your rating</li>
-              <li><i class="fas fa-heart p-2 rounded-full border border-red-400 mr-2 cursor-pointer hover:border-gray-700 hover:text-red-400"></i>Favourite</li>
-              <li><i class="fas fa-list p-2 rounded-full border border-gray-400 mr-2 cursor-pointer hover:border-gray-700 hover:text-gray-400"></i>Add to list</li>
-              <li><i class="fas fa-trash p-2 rounded-full border border-orange-500 mr-2 cursor-pointer hover:border-gray-700 hover:text-orange-500"></i>Remove</li>
-            </ul>
+          <ul class="flex gap-12 mt-5">
+            <li><i
+                class="fas fa-star p-2 rounded-full border border-yellow-400 mr-2 cursor-pointer hover:border-gray-700 hover:bg-yellow-400 hover:text-black "></i>Your
+              rating</li>
+            <li><i
+                class="fas fa-heart p-2 rounded-full border border-red-400 mr-2 cursor-pointer hover:border-gray-700 hover:bg-red-600 hover:text-black"></i>Favourite
+            </li>
+            <li><i
+                class="fas fa-list p-2 rounded-full border border-gray-400 mr-2 cursor-pointer hover:border-gray-700 hover:bg-gray-600 hover:text-black"></i>Add
+              to list</li>
+            <li @click="removeMovie(movie.id)"><i
+                class="fas fa-trash p-2 rounded-full border border-orange-500 mr-2 cursor-pointer hover:border-gray-700 hover:bg-orange-500 hover:text-black"></i>Remove
+            </li>
+          </ul>
         </div>
-        <button
-          class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold"
-          >Watch</button>
-        <button
-          class=" bg-black ml-auto px-2.5 py-3 border-none text-base rounded-md cursor-pointer  hover:bg-red-600 text-white hover:text-base"
-          @click="removeMovie(movie.id)">Remove</button>
       </li>
     </ul>
   </section>
 </template>
 
 <script setup>
-import { inject, ref, onMounted } from 'vue';
+import { inject, ref, onMounted, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import { fetchApi } from '@/utils/fetchAPI';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import { API_READ_ACCESS_TOKEN, BASEURL, API_KEY } from '@/constants/apiConstants';
+import { useToast } from 'vue-toastification';
 
 const user = inject('user');
+const session_id = sessionStorage.getItem('session_id');
 const movieScore = ref(5)
 const tvScore = ref(92);
+const toast = useToast();
 
 const movies = ref([]);
 
@@ -103,13 +114,46 @@ onMounted(() => {
   setProgress(tvScore.value, tvCircle);
 });
 
-fetchApi(`${BASEURL}/3/account/${user.value.id}/watchlist/movies`)
-  .then((res) => {
-    movies.value = res.results;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+function getWatchListMovie() {
+  fetchApi(`${BASEURL}/3/account/${user.value.id}/watchlist/movies`)
+    .then((res) => {
+      movies.value = res.results;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+async function removeMovie(id) {
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
+    },
+    body: JSON.stringify({
+      media_type: 'movie',
+      media_id: id,
+      watchlist: false
+    })
+  }
+  fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
+    .then(response => response.json())
+    .then(data => {
+      toast.success('Movie removed from watchlist successfully');
+      getWatchListMovie();
+    })
+}
+
+onMounted(() => {
+  getWatchListMovie();
+})
+watch(movies,(newVal,oldVal)=>{
+  if (newVal.length < oldVal.length) {
+    getWatchListMovie();
+  }
+})
 
 </script>
 
@@ -133,4 +177,8 @@ fetchApi(`${BASEURL}/3/account/${user.value.id}/watchlist/movies`)
   transform: translate(-50%, -50%);
   color: black;
   font-size: 0.7rem;
+}
+
+ul i {
+  transition: all 0.3s ease;
 }</style>
