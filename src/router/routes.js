@@ -1,9 +1,9 @@
 import { defineAsyncComponent } from 'vue';
 
-const Home = defineAsyncComponent(() => import('@/components/Home.vue'));
-const Register = defineAsyncComponent(() => import('@/components/Register.vue'));
-const MovieDetail = defineAsyncComponent(() => import('@/components/MovieDetail.vue'));
-const Login = defineAsyncComponent(() => import('@/components/login.vue'));
+const Home = defineAsyncComponent(() => import('@/pages/Home.vue'));
+const Register = defineAsyncComponent(() => import('@/pages/Register.vue'));
+const MovieDetail = defineAsyncComponent(() => import('@/pages/MovieDetail.vue'));
+const Login = defineAsyncComponent(() => import('@/pages/login.vue'));
 const Profile = defineAsyncComponent(() => import('@/pages/Profile.vue'));
 const WatchList =defineAsyncComponent(() =>import('@/pages/Watchlist.vue'));
 export const routes = [

@@ -73,7 +73,8 @@ function getUpcomingMovie(){
 }
 
 const addMovieToWatchList = (movieId) =>{
-  fetchApiPost(`${BASEURL}/3/account/${user.value.id}/watchlist?api_key=${API_KEY}&session_id=${sessionStorage.getItem('session_id')}`,{
+  const session_id = localStorage.getItem('session_id');
+  fetchApiPost(`${BASEURL}/3/account/${user.value.id}/watchlist?api_key=${API_KEY}&session_id=${session_id}`,{
     media_type: 'movie',
     media_id: movieId,
     watchlist: true

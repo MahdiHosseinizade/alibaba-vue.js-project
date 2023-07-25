@@ -25,9 +25,9 @@
 </template>
 
 <script setup>
-    import Search from './Search.vue';
-    import Header from './Header.vue';
-    import Movies from './Movies.vue';
-    import Series from './Series.vue';
-    import Footer from './Footer.vue';
+    import Search from '@/components/Search.vue';
+    import Header from '@/components/Header.vue';
+    import Movies from '@/components/Movies.vue';
+    import Series from '@/components/Series.vue';
+    import Footer from '@/components/Footer.vue';
 </script>

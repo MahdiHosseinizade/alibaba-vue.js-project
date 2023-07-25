@@ -47,7 +47,7 @@
 import { inject, onMounted, ref } from 'vue';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import { API_READ_ACCESS_TOKEN, BASEURL, API_KEY } from '@/constants/apiConstants';
-import { fetchApi,fetchApiPost } from '@/utils/fetchAPI';
+import { fetchApi, fetchApiPost } from '@/utils/fetchAPI';
 import { useToast } from 'vue-toastification';
 const seriesList = ref([]);
 const movieInfo = ref('');
@@ -57,7 +57,7 @@ const user = inject('user')
 const toast = useToast();
 
 
-function getPopularSeries(){
+function getPopularSeries() {
   fetchApi(`${BASEURL}/3/movie/top_rated?language=en-US&page=1`)
     .then((data) => {
       const movies = data.results;
@@ -72,47 +72,21 @@ function getPopularSeries(){
     });
 }
 
-const addMovieToWatchList = (movieId) =>{
-  fetchApiPost(`${BASEURL}/3/account/${user.value.id}/watchlist?api_key=${API_KEY}&session_id=${sessionStorage.getItem('session_id')}`,{
+const addMovieToWatchList = (movieId) => {
+  const session_id = localStorage.getItem('session_id');
+  fetchApiPost(`${BASEURL}/3/account/${user.value.id}/watchlist?api_key=${API_KEY}&session_id=${session_id}`, {
     media_type: 'movie',
     media_id: movieId,
     watchlist: true
   })
-  .then((data) => {
-    toast.success('Movie added to watchlist successfully');
-  })
-  .catch((error) => {
-    toast.error('Something went wrong');
-  });
+    .then((data) => {
+      toast.success('Movie added to watchlist successfully');
+    })
+    .catch((error) => {
+      toast.error('Something went wrong');
+    });
 }
-// const addMovieToWatchList = (movieId) => {
-//   try {
-//     if (!user.value) {
-//       toast.error('Please login to add movie to watchlist');
-//       return;
-//     }
-//     const session_id = sessionStorage.getItem('session_id');
-//     const options = {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
-//       },
-//       body: JSON.stringify({
-//         media_type: 'movie',
-//         media_id: movieId,
-//         watchlist: true
-//       })
-//     };
-//     fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         toast.success('Movie added to watchlist successfully');
-//       });
-//   } catch (error) {
-//     toast.error('Something went wrong');
-//   }
-// }
+
 
 onMounted(getPopularSeries);
 

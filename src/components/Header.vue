@@ -6,8 +6,8 @@
 
         <ul class="navbar">
             <li><a href="#home">Home</a></li>
-            <li><a href="#movies">Series</a></li>
-            <li><a href="#coming">Movie</a></li>
+            <li><RouterLink to="watchlist">Watchlist</RouterLink></li>
+            <li><RouterLink to="profile">Profile</RouterLink></li>
             <li><a href="#search">Search</a></li>
         </ul>
         <div class="cc">
