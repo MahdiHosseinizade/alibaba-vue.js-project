@@ -42,7 +42,7 @@
       <article class=" mb-5 flex flex-row  ">
       <h2 class=" ml-40  font-bold text-2xl">Upcoming From Watchlist </h2>
       <RouterLink to="watchlist">
-        <h3 class=" border border-yellow-400 rounded px-5 py-2 absolute right-40">Go to Watchlist</h3>
+        <h3 class=" watchlist-link border border-yellow-400 rounded px-5 py-2 absolute right-40 hover:bg-yellow-400 hover:text-black hover:font-bold">Go to Watchlist</h3>
       </RouterLink>
     </article>
     </div>
@@ -181,4 +181,9 @@ watch(movies,(newVal,oldVal)=>{
 
 ul i {
   transition: all 0.3s ease;
-}</style>
+}
+.watchlist-link{
+  transition: all 0.5s ease-in-out ;
+}
+
+</style>

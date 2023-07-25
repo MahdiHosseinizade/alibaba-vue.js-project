@@ -31,9 +31,6 @@
                 <i @click="addMovieToWatchList(movie.id)"
                   class="fas fa-bookmark text-yellow-300 h-12 w-12 opacity-0 transition-opacity duration-300 cursor-pointer group-hover:opacity-100 hover:text-yellow-600 p-3"></i>
               </div>
-              <div v-if="showPopup">
-                <Popup/>
-              </div>
             </div>
           </div>
           <h3 class="movie-title">{{ movie.title }}</h3>
@@ -48,65 +45,47 @@ import { inject, onMounted, ref } from 'vue';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import { API_READ_ACCESS_TOKEN, BASEURL,API_KEY } from '@/constants/apiConstants';
 import { useToast } from 'vue-toastification';
-import Popup from './Popup.vue';
+import { fetchApi,fetchApiPost } from '@/utils/fetchAPI';
 const movieList = ref([]);
 const movieInfo = ref('');
 const isLoading = ref(true);
 const skeletonCount = ref(3);
-const showPopup = ref(false);
 const user = inject('user');
 const toast = useToast();
 
 
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
-  }
-};
-const getUpcomingMovie = async () => {
+
+function getUpcomingMovie(){
   isLoading.value = true;
-  const respponse = await fetch(`${BASEURL}/3/movie/upcoming?language=en-US&page=1`, options)
-  const data = await respponse.json();
-  const upcomingMovie = data.results;
-  for (const movie of upcomingMovie) {
-    movie.rate = movie.vote_average;
-  }
-  movieList.value = upcomingMovie;
-  isLoading.value = false;
+  fetchApi(`${BASEURL}/3/movie/upcoming?language=en-US&page=1`)
+    .then((data) => {
+      const upcomingMovie = data.results;
+      for (const movie of upcomingMovie) {
+        movie.rate = movie.vote_average;
+      }
+      movieList.value = upcomingMovie;
+      isLoading.value = false;
+    })
+    .catch((error) => {
+      console.log(error);
+      isLoading.value = false;
+    });
 }
 
 const addMovieToWatchList = (movieId) =>{
-  try {
-    if(!user.value){
-      toast.error('Please login to add movie to watchlist');
-      return;
-    }
-    const session_id = sessionStorage.getItem('session_id');
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization : `Bearer ${API_READ_ACCESS_TOKEN}`
-      },
-      body: JSON.stringify({
-        media_type: 'movie',
-        media_id: movieId,
-        watchlist: true
-      })
-    };
-    fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
-      .then((response) => response.json())
-      .then((data) => {
-        showPopup.value = true;
-        console.log('showPopup:', showPopup.value);
-        toast.success('Movie added to watchlist successfully');
-      });
-  } catch (error) {
+  fetchApiPost(`${BASEURL}/3/account/${user.value.id}/watchlist?api_key=${API_KEY}&session_id=${sessionStorage.getItem('session_id')}`,{
+    media_type: 'movie',
+    media_id: movieId,
+    watchlist: true
+  })
+  .then((data) => {
+    toast.success('Movie added to watchlist successfully');
+  })
+  .catch((error) => {
     toast.error('Something went wrong');
-  }
+  });
 }
+
 onMounted(getUpcomingMovie);
 
 </script>

@@ -47,6 +47,7 @@
 import { inject, onMounted, ref } from 'vue';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import { API_READ_ACCESS_TOKEN, BASEURL, API_KEY } from '@/constants/apiConstants';
+import { fetchApi,fetchApiPost } from '@/utils/fetchAPI';
 import { useToast } from 'vue-toastification';
 const seriesList = ref([]);
 const movieInfo = ref('');
@@ -56,54 +57,62 @@ const user = inject('user')
 const toast = useToast();
 
 
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
-  }
-};
-
-const getPopularSeries = async () => {
-  isLoading.value = true;
-  const response = await fetch(`${BASEURL}/3/movie/top_rated?language=en-US&page=1`, options);
-  const data = await response.json();
-  const movies = data.results;
-  for (const movie of movies) {
-    movie.rate = movie.vote_average;
-  }
-  seriesList.value = movies;
-  isLoading.value = false;
-};
-
-const addMovieToWatchList = (movieId) => {
-  try {
-    if (!user.value) {
-      toast.error('Please login to add movie to watchlist');
-      return;
-    }
-    const session_id = sessionStorage.getItem('session_id');
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
-      },
-      body: JSON.stringify({
-        media_type: 'movie',
-        media_id: movieId,
-        watchlist: true
-      })
-    };
-    fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
-      .then((response) => response.json())
-      .then((data) => {
-        toast.success('Movie added to watchlist successfully');
-      });
-  } catch (error) {
-    toast.error('Something went wrong');
-  }
+function getPopularSeries(){
+  fetchApi(`${BASEURL}/3/movie/top_rated?language=en-US&page=1`)
+    .then((data) => {
+      const movies = data.results;
+      for (const movie of movies) {
+        movie.rate = movie.vote_average;
+      }
+      seriesList.value = movies;
+      isLoading.value = false;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
+
+const addMovieToWatchList = (movieId) =>{
+  fetchApiPost(`${BASEURL}/3/account/${user.value.id}/watchlist?api_key=${API_KEY}&session_id=${sessionStorage.getItem('session_id')}`,{
+    media_type: 'movie',
+    media_id: movieId,
+    watchlist: true
+  })
+  .then((data) => {
+    toast.success('Movie added to watchlist successfully');
+  })
+  .catch((error) => {
+    toast.error('Something went wrong');
+  });
+}
+// const addMovieToWatchList = (movieId) => {
+//   try {
+//     if (!user.value) {
+//       toast.error('Please login to add movie to watchlist');
+//       return;
+//     }
+//     const session_id = sessionStorage.getItem('session_id');
+//     const options = {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
+//       },
+//       body: JSON.stringify({
+//         media_type: 'movie',
+//         media_id: movieId,
+//         watchlist: true
+//       })
+//     };
+//     fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         toast.success('Movie added to watchlist successfully');
+//       });
+//   } catch (error) {
+//     toast.error('Something went wrong');
+//   }
+// }
 
 onMounted(getPopularSeries);
 
