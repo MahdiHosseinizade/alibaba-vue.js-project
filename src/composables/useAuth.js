@@ -96,7 +96,6 @@ export default function useAuth(app) {
 
 	function logout() {
 		localStorage.clear();
-		// localStorage.removeItem("user-id");
 		sessionStorage.removeItem("session_id");
 		sessionStorage.removeItem("user_id");
 	}

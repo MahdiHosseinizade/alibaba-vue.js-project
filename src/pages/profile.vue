@@ -88,7 +88,7 @@
 <script setup>
 import { inject, ref, onMounted, watch } from 'vue';
 import { RouterLink,useRouter } from 'vue-router';
-import { fetchApi } from '@/utils/fetchAPI';
+import { fetchApi,fetchApiPost } from '@/utils/fetchAPI';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import { API_READ_ACCESS_TOKEN, BASEURL, API_KEY } from '@/constants/apiConstants';
 import { useToast } from 'vue-toastification';
@@ -135,27 +135,19 @@ async function Logout(){
   toast.success('Logout successfully');
 }
 
-async function removeMovie(id) {
-
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`
-    },
-    body: JSON.stringify({
-      media_type: 'movie',
-      media_id: id,
-      watchlist: false
-    })
-  }
-  fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
-    .then(response => response.json())
-    .then(data => {
-      toast.success('Movie removed from watchlist successfully');
-      getWatchListMovie();
-    })
+async function removeMovie(id){
+  fetchApiPost(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`,{
+    media_type: 'movie',
+    media_id: id,
+    watchlist: false
+  })
+  .then((res)=>{
+    toast.success('Movie removed from watchlist successfully');
+    getWatchListMovie();
+  })
 }
+
+
 
 onMounted(() => {
   getWatchListMovie();
