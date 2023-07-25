@@ -31,6 +31,9 @@
                 <i @click="addMovieToWatchList(movie.id)"
                   class="fas fa-bookmark text-yellow-300 h-12 w-12 opacity-0 transition-opacity duration-300 cursor-pointer group-hover:opacity-100 hover:text-yellow-600 p-3"></i>
               </div>
+              <div v-if="showPopup">
+                <Popup/>
+              </div>
             </div>
           </div>
           <h3 class="movie-title">{{ movie.title }}</h3>
@@ -45,10 +48,12 @@ import { inject, onMounted, ref } from 'vue';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import { API_READ_ACCESS_TOKEN, BASEURL,API_KEY } from '@/constants/apiConstants';
 import { useToast } from 'vue-toastification';
+import Popup from './Popup.vue';
 const movieList = ref([]);
 const movieInfo = ref('');
 const isLoading = ref(true);
 const skeletonCount = ref(3);
+const showPopup = ref(false);
 const user = inject('user');
 const toast = useToast();
 
@@ -94,6 +99,8 @@ const addMovieToWatchList = (movieId) =>{
     fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
       .then((response) => response.json())
       .then((data) => {
+        showPopup.value = true;
+        console.log('showPopup:', showPopup.value);
         toast.success('Movie added to watchlist successfully');
       });
   } catch (error) {
