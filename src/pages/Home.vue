@@ -18,14 +18,14 @@
             </div>
         </div>
     </section>
-    <Search />
+    <!-- <Search /> -->
     <Series />
     <Movies />
     <Footer />
 </template>
 
 <script setup>
-    import Search from '@/components/Search.vue';
+    // import Search from '@/components/Search.vue';
     import Header from '@/components/Header.vue';
     import Movies from '@/components/Movies.vue';
     import Series from '@/components/Series.vue';

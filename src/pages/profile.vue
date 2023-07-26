@@ -97,7 +97,7 @@ const user = inject('user');
 const logout = inject('logout');
 const router = useRouter();
 const session_id = sessionStorage.getItem('session_id');
-const movieScore = ref(5)
+const movieScore = ref(60)
 const tvScore = ref(92);
 const toast = useToast();
 

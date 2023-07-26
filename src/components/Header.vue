@@ -8,7 +8,7 @@
             <li><a href="#home">Home</a></li>
             <li><RouterLink to="watchlist">Watchlist</RouterLink></li>
             <li><RouterLink to="profile">Profile</RouterLink></li>
-            <li><a href="#search">Search</a></li>
+            <li><RouterLink to="search">Search</RouterLink></li>
         </ul>
         <div class="cc">
             <div v-if="!user">

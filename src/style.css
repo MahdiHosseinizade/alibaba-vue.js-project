@@ -309,45 +309,9 @@ header{
         transform: translateX(100%);
     }
   }
-
-.search{
-    max-width: 968px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-}
-.search h2{
-    align-items: center;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-.search form{
-    background-color: var(--text-color);
-    padding: 10px;
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 400px;
-}
-.search form input{
-    border: 0;
-    outline: none;
-    width: 200px;
-}
 .search .btn{
-    text-transform: uppercase;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    outline: none;
     transition: all .3s ease-in-out;
-    width: 100px;
+    
 }
 
 
