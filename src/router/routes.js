@@ -6,7 +6,7 @@ const MovieDetail = defineAsyncComponent(() => import('@/pages/MovieDetail.vue')
 const Login = defineAsyncComponent(() => import('@/pages/login.vue'));
 const profile = defineAsyncComponent(() => import('@/pages/profile.vue'));
 const watchList =defineAsyncComponent(() =>import('@/pages/watchlist.vue'));
-const search = defineAsyncComponent(() => import('@/pages/searchMovie.vue'));
+const search = defineAsyncComponent(() => import('@/pages/searchmovie.vue'));
 export const routes = [
   { path: '/', name: 'home', component: Home  },
   { path: '/login', name: 'login', component: Login },
