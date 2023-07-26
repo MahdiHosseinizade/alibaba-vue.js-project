@@ -5,8 +5,8 @@ const Register = defineAsyncComponent(() => import('@/pages/Register.vue'));
 const MovieDetail = defineAsyncComponent(() => import('@/pages/MovieDetail.vue'));
 const Login = defineAsyncComponent(() => import('@/pages/login.vue'));
 const profile = defineAsyncComponent(() => import('@/pages/profile.vue'));
-const WatchList =defineAsyncComponent(() =>import('@/pages/Watchlist.vue'));
-const Search = defineAsyncComponent(() => import('@/pages/SearchMovie.vue'));
+const WatchList =defineAsyncComponent(() =>import('@/pages/watchlist.vue'));
+const Search = defineAsyncComponent(() => import('@/pages/searchMovie.vue'));
 export const routes = [
   { path: '/', name: 'home', component: Home  },
   { path: '/login', name: 'login', component: Login },
