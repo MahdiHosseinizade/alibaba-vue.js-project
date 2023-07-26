@@ -16,11 +16,9 @@
             <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex flex-col  justify-center items-center opacity-0
             transition-opacity duration-300 group-hover:opacity-100">
               <div
-                class="mb-6 flex rounded bg-black px-1 pb-1.5 pt-2 text-yellow-400 font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#F5C518] transition duration-150 ease-in-out hover:bg-yellow-600 text-yellow-100  focus:bg-gray-200 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-gray-950 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-                <img src="../assets/images/logo.png" alt="IMDb Logo" class="w-5 h-5 mr-2">
+                class=" vote_avarage w-28 my-3 flex rounded bg-black px-1 pb-1.5 pt-2 text-yellow-400 font-medium uppercase leading-normal  transition duration-150 ease-in-out  text-yellow-100  focus:bg-gray-200 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 hover:bg-gray-950 ">
+                <img src="@/assets/images/logo.png" alt="IMDb Logo" class="w-5 h-5 mr-2 logoImg">
                 {{ series.vote_average }}
-                <span
-                  class="ml-2 inline-block whitespace-nowrap rounded-[0.27rem] bg-danger-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-danger-700"></span>
               </div>
 
               <div>
@@ -85,7 +83,7 @@ const addMovieToWatchList = (movieId) => {
         console.log(error);
       });
   }
-  else{
+  else {
     toast.error('Please login to add movie to watchlist');
   }
 };
