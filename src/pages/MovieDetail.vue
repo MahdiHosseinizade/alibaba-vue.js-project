@@ -6,11 +6,11 @@
       <RouterLink to="/" class="text-3xl font-bold no-underline text-white px-2 py-2.5 bg-black rounded-xl ">
         <i class='bx bxs-movie text-4xl mr-2.5'></i>IMDB
       </RouterLink>
-      <div @click="redirectTo('./profile.html')" class="person-icon">
+      <RouterLink to="/profile" class="person-icon">
         <span
           class="bg-yellow-100 text-black text-sm font-medium mr-2 px-2.5 py-1 rounded dark:bg-gray-400 dark:text-balck hover:cursor-pointer">{{
             user && user.username ? user.username : '' }}</span>
-      </div>
+      </RouterLink>
     </header>
   <main>
     <section :style="{ backgroundImage: `url(${imageBaseURL}${imageSize}${movieDetail.poster_path})` }"
