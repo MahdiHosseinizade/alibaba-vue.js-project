@@ -4,7 +4,7 @@ const Home = defineAsyncComponent(() => import('@/pages/Home.vue'));
 const Register = defineAsyncComponent(() => import('@/pages/Register.vue'));
 const MovieDetail = defineAsyncComponent(() => import('@/pages/MovieDetail.vue'));
 const Login = defineAsyncComponent(() => import('@/pages/login.vue'));
-const Profile = defineAsyncComponent(() => import('@/pages/Profile.vue'));
+const profile = defineAsyncComponent(() => import('@/pages/profile.vue'));
 const WatchList =defineAsyncComponent(() =>import('@/pages/Watchlist.vue'));
 const Search = defineAsyncComponent(() => import('@/pages/SearchMovie.vue'));
 export const routes = [
@@ -14,5 +14,5 @@ export const routes = [
   { path: '/movie/:id', name: 'movie', component: MovieDetail },
   {path: '/search', name: 'search', component: Search},
   {path : '/watchlist',name:'watchlist',component:WatchList,meta: { requiresAuth: true }},
-  { path: '/profile', name: 'profile', component: Profile , meta: { requiresAuth: true }},
+  { path: '/profile', name: 'profile', component: profile , meta: { requiresAuth: true }},
 ];
