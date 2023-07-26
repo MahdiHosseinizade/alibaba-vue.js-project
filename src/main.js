@@ -19,6 +19,7 @@ const options =  {
 	closeButton: "button",
 	icon: true,
 	rtl: false,
+	zIndex : 10000
 };
 
 const app = createApp(App);
