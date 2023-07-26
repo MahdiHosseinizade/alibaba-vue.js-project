@@ -10,10 +10,15 @@
             user && user.username ? user.username : '' }}</span>
       </RouterLink>
     </header>
-    
-    <h1 v-if="!movies.length"  class="text-white text-center mt-12 mb-8 ">
+
+    <div v-if="isLoading" class="flex  justify-center  items-center  h-screen">
+      <pulse-loader :loading="isLoading" color="yellow" :size="size"></pulse-loader>
+    </div>
+    <h1 v-if="!movies.length && !isLoading" class="text-white text-center mt-12 mb-8 ">
       No movie in your watchlist</h1>
-    <h1 class="text-white text-center mt-12 mb-8" v-else><span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-black bg-yellow-300 rounded-full">{{ movies.length }}</span>
+    <h1 v-if="movies.length && !isLoading" class="text-white text-center mt-12 mb-8"><span
+        class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-black bg-yellow-300 rounded-full">{{
+          movies.length }}</span>
       movies is in your watchlist</h1>
     <ul class=" w-4/5 mx-auto list-none p-0 m-0 watchlist">
       <li class="border border-solid border-yellow-400 rounded-xl flex items-center mb-5" v-for="movie in movies"
@@ -40,8 +45,7 @@
           </div>
         </div>
         <button
-          class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold"
-          >Watch</button>
+          class="bg-black  px-2.5 py-3 border-none text-base rounded-md cursor-pointer text-white mx-2.5 ml-2.5 hover:bg-yellow-400 hover:text-black hover:font-bold">Watch</button>
         <button
           class=" bg-black ml-auto px-2.5 py-3 border-none text-base rounded-md cursor-pointer  hover:bg-red-600 text-white hover:text-base"
           @click="removeMovie(movie.id)">Remove</button>
@@ -55,15 +59,20 @@ import { ref, inject, watch, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
-import { API_READ_ACCESS_TOKEN, BASEURL,API_KEY } from '@/constants/apiConstants';
+import { API_READ_ACCESS_TOKEN, BASEURL, API_KEY } from '@/constants/apiConstants';
+import PulseLoader from '../components/Spinner.vue'
+
+
 
 
 const movies = ref([]);
 const user = inject('user');
 const toast = useToast();
+const isLoading = ref(false);
 const session_id = sessionStorage.getItem('session_id');
 
 async function getWatchListMovie() {
+  isLoading.value = true;
   const options = {
     method: 'GET',
     headers: {
@@ -81,6 +90,7 @@ async function getWatchListMovie() {
     movie.genres = gen.join(', ');
   }
   movies.value = watchListMovie;
+  isLoading.value = false;
 }
 
 
@@ -99,16 +109,16 @@ async function removeMovie(id) {
     })
   }
   fetch(`${BASEURL}/3/account/${user.value.id}/watchlist?session_id=${session_id}`, options)
-  .then(response => response.json())
-  .then(data => {
-    toast.success('Movie removed from watchlist successfully');
-    getWatchListMovie();
-  })
+    .then(response => response.json())
+    .then(data => {
+      toast.success('Movie removed from watchlist successfully');
+      getWatchListMovie();
+    })
 }
 
 
 onMounted(getWatchListMovie)
-watch(movies,(newVal,oldVal)=>{
+watch(movies, (newVal, oldVal) => {
   if (newVal.length < oldVal.length) {
     getWatchListMovie();
   }
@@ -142,7 +152,8 @@ watch(movies,(newVal,oldVal)=>{
     width: 100%;
     margin: 10px 0;
   }
-  .vote_avarage{
+
+  .vote_avarage {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -150,9 +161,10 @@ watch(movies,(newVal,oldVal)=>{
     margin-top: 2%;
     margin-right: 5%;
   }
-  .logoImg{
+
+  .logoImg {
     width: 25px !important;
-    height: 25px!important;
+    height: 25px !important;
   }
 }
 </style>

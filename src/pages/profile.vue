@@ -41,18 +41,16 @@
     </section>
   </section>
   <section class="mt-24">
-    <div v-if="movies.length">
-      <article class=" mb-5 flex flex-row  ">
+    <div v-if="isLoading" class="flex  justify-center  items-center  h-screen">
+      <pulse-loader :loading="isLoading" color="yellow" :size="size"></pulse-loader>
+    </div>
+    <h1 v-if="!movies.length && !isLoading" class="text-white text-center mt-12 mb-8 ">
+      No movie in your watchlist</h1>
+    <div v-if="movies.length && !isLoading" class=" mb-5 flex flex-row  ">
       <h2 class=" ml-40  font-bold text-2xl">Upcoming From Watchlist </h2>
       <RouterLink to="watchlist">
         <h3 class=" watchlist-link border border-yellow-400 rounded px-5 py-2 absolute right-40 hover:bg-yellow-400 hover:text-black hover:font-bold">Go to Watchlist</h3>
-      </RouterLink>
-    </article>
-    </div>
-    <div v-else>
-      <h2 class="text-white text-center mt-12 mb-8 ">
-        No movie in your watchlist</h2>
-    </div>
+      </RouterLink></div>
     <ul class=" w-4/5 mx-auto list-none p-0 m-0 watchlist">
       <li class="border border-solid border-yellow-400 rounded-xl flex items-center mb-5" v-for="movie in movies"
         :key="movie.id">
@@ -92,6 +90,8 @@ import { fetchApi,fetchApiPost } from '@/utils/fetchAPI';
 import { imageBaseURL, imageSize } from '@/constants/imageAPI';
 import { API_READ_ACCESS_TOKEN, BASEURL, API_KEY } from '@/constants/apiConstants';
 import { useToast } from 'vue-toastification';
+import PulseLoader from '../components/Spinner.vue'
+const isLoading = ref(false);
 
 const user = inject('user');
 const logout = inject('logout');
@@ -120,9 +120,11 @@ onMounted(() => {
 });
 
 function getWatchListMovie() {
+  isLoading.value = true ;
   fetchApi(`${BASEURL}/3/account/${user.value.id}/watchlist/movies`)
     .then((res) => {
       movies.value = res.results;
+      isLoading.value = false ;
     })
     .catch((err) => {
       console.log(err);
